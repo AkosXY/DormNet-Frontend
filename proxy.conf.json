@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "http://localhost",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/realms/dormnet": {
+    "target": "http://localhost",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
