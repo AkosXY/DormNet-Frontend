@@ -1,1 +1,14 @@
 <p>home works!</p>
+
+
+<div *ngIf="rooms$ | async as rooms; else loading">
+  <ul>
+    <li *ngFor="let room of rooms">
+      {{ room.id }}
+    </li>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <p>Loading rooms...</p>
+</ng-template>
