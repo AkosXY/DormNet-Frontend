@@ -1,18 +1,19 @@
-import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import {
   provideKeycloak,
   IncludeBearerTokenCondition,
-  createInterceptorCondition, INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG, includeBearerTokenInterceptor
+  createInterceptorCondition,
+  INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+  includeBearerTokenInterceptor,
 } from 'keycloak-angular';
-import {provideHttpClient, withInterceptors} from '@angular/common/http';
-
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 const urlCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
   urlPattern: /^(http:\/\/localhost)(\/.*)?$/i,
-  bearerPrefix: 'Bearer'
+  bearerPrefix: 'Bearer',
 });
 
 export const appConfig: ApplicationConfig = {
@@ -21,20 +22,20 @@ export const appConfig: ApplicationConfig = {
       config: {
         url: 'http://localhost',
         realm: 'dormnet',
-        clientId: 'dormnet-api'
+        clientId: 'dormnet-api',
       },
       initOptions: {
         onLoad: 'login-required',
         silentCheckSsoRedirectUri:
-          window.location.origin + '/assets/silent-check-sso.html'
-      }
+          window.location.origin + '/assets/silent-check-sso.html',
+      },
     }),
     {
       provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
-      useValue: [urlCondition]
+      useValue: [urlCondition],
     },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([includeBearerTokenInterceptor]))
-  ]
+    provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
+  ],
 };
