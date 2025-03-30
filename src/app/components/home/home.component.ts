@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { AccommodationService } from '../../services/accommodation.service';
-import { catchError, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { Room } from '../../model/room';
+import { Resident } from '../../model/resident';
 
 @Component({
   selector: 'app-home',
   imports: [AsyncPipe, CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  rooms$: Observable<any[]> | undefined;
+  rooms$: Observable<Room[]> | undefined;
+  resident$: Observable<Resident[]> | undefined;
 
   constructor(private accommodationService: AccommodationService) {}
 
@@ -19,9 +22,11 @@ export class HomeComponent implements OnInit {
       tap((data) => {
         console.log(data);
       }),
-      catchError((error) => {
-        console.error(error);
-        return [];
+    );
+
+    this.resident$ = this.accommodationService.getAllResidents().pipe(
+      tap((data) => {
+        console.log(data);
       }),
     );
   }

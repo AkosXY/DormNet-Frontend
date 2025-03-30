@@ -8,6 +8,14 @@
   </ul>
 </div>
 
+<div *ngIf="resident$ | async as residents; else loading">
+  <ul>
+    <li *ngFor="let resident of residents">
+      {{ resident.name }}
+    </li>
+  </ul>
+</div>
+
 <ng-template #loading>
   <p>Loading rooms...</p>
 </ng-template>
