@@ -1,38 +1,40 @@
-import {APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
+import {
+  provideKeycloak,
+  IncludeBearerTokenCondition,
+  createInterceptorCondition, INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG, includeBearerTokenInterceptor
+} from 'keycloak-angular';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 
-function initializeKeycloak(keycloak: KeycloakService) {
-  console.log('Initializing Keycloak...');
-  return () =>
-    keycloak.init({
-      config: {
-        url: 'http://localhost',
-        realm: 'dormnet',
-        clientId: 'dormnet-api',
-      },
-      initOptions: {
-        onLoad: 'login-required',
-        checkLoginIframe: false,
-        flow: "standard"
-      },
-    });
-}
+
+const urlCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
+  urlPattern: /^(http:\/\/localhost)(\/.*)?$/i,
+  bearerPrefix: 'Bearer'
+});
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideKeycloak({
+      config: {
+        url: 'http://localhost',
+        realm: 'dormnet',
+        clientId: 'dormnet-api'
+      },
+      initOptions: {
+        onLoad: 'login-required',
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html'
+      }
+    }),
+    {
+      provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+      useValue: [urlCondition]
+    },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    KeycloakService,
-    KeycloakAngularModule,
-    {
-      provide:
-      APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      deps: [KeycloakService],
-      multi: true,
-    }
+    provideHttpClient(withInterceptors([includeBearerTokenInterceptor]))
   ]
 };
