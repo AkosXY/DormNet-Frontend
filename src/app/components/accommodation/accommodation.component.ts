@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AccommodationService } from '../../services/api/accommodation.service';
 import { Observable, tap } from 'rxjs';
-import { AsyncPipe, CommonModule } from '@angular/common';
 import { Room } from '../../model/room';
 import { Resident } from '../../model/resident';
+import { AccommodationService } from '../../services/api/accommodation.service';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-home',
-  imports: [AsyncPipe, CommonModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  selector: 'app-accommodation',
+  imports: [AsyncPipe, NgIf, NgForOf],
+  templateUrl: './accommodation.component.html',
+  styleUrl: './accommodation.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class AccommodationComponent implements OnInit {
   rooms$: Observable<Room[]> | undefined;
   resident$: Observable<Resident[]> | undefined;
 

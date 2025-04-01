@@ -1,2 +1,16 @@
+<!--<mat-toolbar [ngClass]="'mat-elevation-z3'">-->
+<mat-toolbar class="mat-elevation-z3">
+  <!--  <button mat-icon-button (click)="collapsed.set(!collapsed())">-->
+  <button mat-icon-button (click)="sidenavService.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
 
-<router-outlet />
+<mat-sidenav-container>
+  <mat-sidenav opened mode="side" [style.width]="width()">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content class="content" [style.margin-left]="width()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
