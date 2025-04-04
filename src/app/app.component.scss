@@ -3,15 +3,18 @@
 @include mat.core();
 
 
+.hamburger-icon{
+margin-right: 20px;
+}
 
-.my-toolbar {
-  @include mat.elevation(3);
+.app-title{
+  cursor: pointer;
+  user-select: none;
 }
 
 .mat-elevation-z3 {
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2);
 }
-
 
 .content{
   padding: 24px;

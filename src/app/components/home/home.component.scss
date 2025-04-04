@@ -1,0 +1,34 @@
+.dashboard-container {
+  padding: 20px;
+}
+
+.welcome-message {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.responsive-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.feature-cards {
+  margin-bottom: 20px;
+}
+
+.reservations-section {
+  margin-top: 30px;
+}
+
+.reservation-card {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+}

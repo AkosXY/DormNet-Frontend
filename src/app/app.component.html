@@ -1,9 +1,8 @@
-<!--<mat-toolbar [ngClass]="'mat-elevation-z3'">-->
 <mat-toolbar class="mat-elevation-z3">
-  <!--  <button mat-icon-button (click)="collapsed.set(!collapsed())">-->
-  <button mat-icon-button (click)="sidenavService.toggle()">
+  <button class="hamburger-icon" mat-icon-button (click)="sidenavService.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
+  <a class="app-title" (click)="navigateToHome()">DormNet</a>
 </mat-toolbar>
 
 <mat-sidenav-container>

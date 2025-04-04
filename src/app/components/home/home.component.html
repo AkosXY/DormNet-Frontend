@@ -1,21 +1,23 @@
-<p>home works!</p>
+<div class="dashboard-container">
 
-<div *ngIf="rooms$ | async as rooms; else loading">
-  <ul>
-    <li *ngFor="let room of rooms">
-      {{ room.id }}
-    </li>
-  </ul>
+  <div class="feature-cards">
+    <div class="responsive-grid" [ngStyle]="{'grid-template-columns': columnSelector()}">
+      <app-feature-card *ngFor="let route of routes"
+                        [route]="route">
+      </app-feature-card>
+    </div>
+  </div>
+
+  <div class="reservations-section">
+    <h2>Active Reservations</h2>
+    <mat-card *ngFor="let reservation of reservations" class="reservation-card">
+      <mat-card-header>
+        <mat-card-title>{{ reservation.resourceId }}</mat-card-title>
+        <mat-card-subtitle>{{ reservation.email }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ reservation.details }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
-
-<div *ngIf="resident$ | async as residents; else loading">
-  <ul>
-    <li *ngFor="let resident of residents">
-      {{ resident.name }}
-    </li>
-  </ul>
-</div>
-
-<ng-template #loading>
-  <p>Loading rooms...</p>
-</ng-template>

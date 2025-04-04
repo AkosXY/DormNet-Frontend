@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SidenavService } from './sidenav.service';
+import { ResponsiveService } from './responsive.service';
 
-describe('SidenavService', () => {
-  let service: SidenavService;
+describe('ResponsiveService', () => {
+  let service: ResponsiveService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SidenavService);
+    service = TestBed.inject(ResponsiveService);
   });
 
   it('should be created', () => {
