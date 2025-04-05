@@ -1,5 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Observable,
+  Subject,
+  tap,
+} from 'rxjs';
 import { Room } from '../../model/room';
 import { Resident } from '../../model/resident';
 import { AccommodationService } from '../../services/api/accommodation.service';
@@ -9,6 +15,7 @@ import {
   MatCardActions,
   MatCardContent,
   MatCardHeader,
+  MatCardTitle,
 } from '@angular/material/card';
 import { MatChip } from '@angular/material/chips';
 import { MatButton } from '@angular/material/button';
@@ -23,6 +30,9 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AssignResidentDialogComponent } from './assign-resident-dialog/assign-resident-dialog.component';
 import { ResidentDetailDialogComponent } from './resident-detail-dialog/resident-detail-dialog.component';
+import { BaseChartDirective } from 'ng2-charts';
+import { Chart, ChartOptions, registerables } from 'chart.js';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-accommodation',
@@ -37,6 +47,7 @@ import { ResidentDetailDialogComponent } from './resident-detail-dialog/resident
     MatExpansionPanelHeader,
     MatExpansionPanel,
     MatAccordion,
+    MatCardTitle,
     MatFormField,
     MatLabel,
     MatSlideToggle,
@@ -44,50 +55,77 @@ import { ResidentDetailDialogComponent } from './resident-detail-dialog/resident
     MatInput,
     MatCard,
     MatCardHeader,
+    MatPaginator,
+    BaseChartDirective,
   ],
   templateUrl: './accommodation.component.html',
   styleUrl: './accommodation.component.scss',
 })
 export class AccommodationComponent implements OnInit {
   rooms$: Observable<Room[]> | undefined;
+  loadedRooms: Room[] = [];
+  filteredRoomsList: Room[] = [];
+  paginatedRooms: Room[] = [];
+  roomChartData: any;
+  roomLabels: string[] | undefined;
   resident$: Observable<Resident[]> | undefined;
 
   searchRoomNumber: string = '';
   searchResidentName: string = '';
   filterAvailableCapacity: boolean = false;
 
-  dialog: MatDialog = inject(MatDialog);
+  private searchRoomNumberSubject: Subject<string> = new Subject();
+  private searchResidentNameSubject: Subject<string> = new Subject();
+  private searchDebounceTime: number = 500;
 
+  pageSize: number = 5;
+  pageIndex: number = 0;
+  totalRooms: number = 0;
+
+  dialog: MatDialog = inject(MatDialog);
   accommodationService: AccommodationService = inject(AccommodationService);
 
   ngOnInit() {
     this.loadRooms();
-
     this.resident$ = this.accommodationService.getAllResidents().pipe(
       tap((data) => {
-        console.log(data);
+        console.log('Residents data:', data);
       }),
     );
+    Chart.register(...registerables);
+    this.initDebounceTimer();
   }
 
   loadRooms() {
     this.rooms$ = this.accommodationService.getAllRooms().pipe(
       tap((data) => {
-        console.log(data);
+        this.loadedRooms = data;
+        this.filteredRoomsList = this.filteredRooms(this.loadedRooms);
+        this.totalRooms = this.filteredRoomsList.length;
+        this.updatePaginatedRooms();
+        this.updateChartData(this.paginatedRooms);
       }),
     );
   }
 
-  openAssignResidentDialog(room: Room) {
-    const dialogRef = this.dialog.open(AssignResidentDialogComponent, {
-      data: { room },
-    });
+  getPaginatedRooms(rooms: Room[]): Room[] {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    return rooms.slice(start, end);
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'assigned') {
-        this.loadRooms();
-      }
-    });
+  updatePaginatedRooms() {
+    this.paginatedRooms = this.getPaginatedRooms(this.filteredRoomsList);
+  }
+
+  onPageChange(event: any) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updatePaginatedRooms();
+    const filteredPaginatedRooms = this.getPaginatedRooms(
+      this.filteredRoomsList,
+    );
+    this.updateChartData(filteredPaginatedRooms);
   }
 
   filteredRooms(rooms: Room[]): Room[] {
@@ -114,6 +152,18 @@ export class AccommodationComponent implements OnInit {
     });
   }
 
+  openAssignResidentDialog(room: Room) {
+    const dialogRef = this.dialog.open(AssignResidentDialogComponent, {
+      data: { room },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'assigned') {
+        this.loadRooms();
+      }
+    });
+  }
+
   openResidentDetailDialog(resident: Resident, room: Room) {
     const dialogRef = this.dialog.open(ResidentDetailDialogComponent, {
       data: { resident, room },
@@ -124,5 +174,78 @@ export class AccommodationComponent implements OnInit {
         this.loadRooms();
       }
     });
+  }
+
+  updateChartData(rooms: Room[]) {
+    this.roomLabels = rooms.map((room) => `Room ${room.number}`);
+    this.roomChartData = {
+      labels: this.roomLabels,
+      datasets: [
+        {
+          label: 'Occupancy',
+          data: rooms.map((room) => room.numOfResidents),
+          backgroundColor: rooms.map(
+            (room) =>
+              room.numOfResidents < room.capacity
+                ? 'rgba(76, 175, 80, 0.6)' // Green for available rooms
+                : 'rgba(244, 67, 54, 0.6)', // Red for full rooms
+          ),
+        },
+      ],
+    };
+  }
+
+  chartOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      tooltip: {},
+    },
+    scales: {
+      x: {
+        title: {
+          display: false,
+          text: 'Rooms',
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Number of Residents',
+        },
+        min: 0,
+        ticks: {
+          stepSize: 1,
+          precision: 0,
+        },
+      },
+    },
+  };
+
+  initDebounceTimer() {
+    this.searchRoomNumberSubject
+      .pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged())
+      .subscribe(() => {
+        this.onSearchChange();
+      });
+
+    this.searchResidentNameSubject
+      .pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged())
+      .subscribe(() => {
+        this.onSearchChange();
+      });
+  }
+
+  onSearchChange() {
+    this.filteredRoomsList = this.filteredRooms(this.loadedRooms);
+    this.updatePaginatedRooms();
+    this.updateChartData(this.paginatedRooms);
+  }
+
+  onSearchRoomNumberChange() {
+    this.searchRoomNumberSubject.next(this.searchRoomNumber);
+  }
+
+  onSearchResidentNameChange() {
+    this.searchResidentNameSubject.next(this.searchResidentName);
   }
 }
