@@ -1,21 +1,23 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccommodationService {
-
-  private readonly baseUrl = 'http://localhost/api';
-
-  constructor(private http: HttpClient) { }
+  private readonly baseUrl = environment.baseUrl;
+  http: HttpClient = inject(HttpClient);
 
   getAllRooms(): Observable<any> {
     return this.http.get(`${this.baseUrl}/rooms`);
   }
 
-  createRoom(roomData: { capacity: number; numOfResidents: number }): Observable<any> {
+  createRoom(roomData: {
+    capacity: number;
+    numOfResidents: number;
+  }): Observable<any> {
     return this.http.post(`${this.baseUrl}/rooms`, roomData);
   }
 
@@ -23,16 +25,24 @@ export class AccommodationService {
     return this.http.get(`${this.baseUrl}/resident`);
   }
 
-  createResident(residentData: { name: string; room: { id: number } }): Observable<any> {
+  createResident(residentData: {
+    name: string;
+    room: { id: number };
+  }): Observable<any> {
     return this.http.post(`${this.baseUrl}/resident`, residentData);
   }
 
   assignResidentToRoom(residentId: number, roomId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/resident/${residentId}/assign/${roomId}`, {});
+    return this.http.post(
+      `${this.baseUrl}/resident/${residentId}/assign/${roomId}`,
+      {},
+    );
   }
 
   unassignResident(residentId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/resident/${residentId}/unassign`, {});
+    return this.http.post(
+      `${this.baseUrl}/resident/${residentId}/unassign`,
+      {},
+    );
   }
-
 }

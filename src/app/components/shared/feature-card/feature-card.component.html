@@ -1,0 +1,9 @@
+<mat-card class="feature-card" [routerLink]="'/' + route?.route">
+  <mat-card-header>
+    <mat-icon>{{ route?.icon }}</mat-icon>
+    <mat-card-title>{{ route?.label }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ route?.description }}</p>
+  </mat-card-content>
+</mat-card>

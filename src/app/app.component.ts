@@ -31,6 +31,7 @@ import { MatRippleModule } from '@angular/material/core';
 export class AppComponent implements OnInit {
   navigationService: NavigationService = inject(NavigationService);
   title = 'dormnet-frontend';
+
   collapsed!: Signal<boolean>;
   width!: Signal<string>;
 

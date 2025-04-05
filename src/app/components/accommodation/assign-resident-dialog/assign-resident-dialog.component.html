@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Assign Resident to Room {{ data.room.number }}</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Search Resident</mat-label>
+    <input matInput [(ngModel)]="searchTerm" placeholder="Search by name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select Resident</mat-label>
+    <mat-select [(ngModel)]="selectedResident">
+      <mat-option
+        *ngFor="let resident of filteredResidents()"
+        [value]="resident"
+      >
+        {{ resident.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-button color="primary" (click)="assignResident()">Assign</button>
+</div>

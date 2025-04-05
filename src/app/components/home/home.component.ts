@@ -7,10 +7,7 @@ import {
   MatCardTitle,
   MatCardSubtitle,
 } from '@angular/material/card';
-import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import { RouterLink } from '@angular/router';
 import { NavigationService } from '../../services/state/navigation.service';
-import { MatIcon } from '@angular/material/icon';
 import { ResponsiveService } from '../../services/display/responsive.service';
 import { FeatureCardComponent } from '../shared/feature-card/feature-card.component';
 

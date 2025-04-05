@@ -1,0 +1,21 @@
+.room-card {
+  margin: 1rem 0;
+}
+
+.status-chip {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  padding: 0 8px;
+  border-radius: 12px;
+  &.full {
+    background-color: #f44336;
+    color: white;
+  }
+  &.available {
+    background-color: #4caf50;
+    color: white;
+  }
+
+
+
+}
