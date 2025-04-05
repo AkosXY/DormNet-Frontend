@@ -4,16 +4,14 @@ import { Room } from '../../model/room';
 import { Resident } from '../../model/resident';
 import { AccommodationService } from '../../services/api/accommodation.service';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { ResponsiveService } from '../../services/display/responsive.service';
 import {
   MatCard,
   MatCardActions,
   MatCardContent,
-  MatCardTitle,
+  MatCardHeader,
 } from '@angular/material/card';
 import { MatChip } from '@angular/material/chips';
 import { MatButton } from '@angular/material/button';
-import { RoomCardComponent } from '../shared/room-card/room-card.component';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -24,6 +22,7 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AssignResidentDialogComponent } from './assign-resident-dialog/assign-resident-dialog.component';
+import { ResidentDetailDialogComponent } from './resident-detail-dialog/resident-detail-dialog.component';
 
 @Component({
   selector: 'app-accommodation',
@@ -43,6 +42,8 @@ import { AssignResidentDialogComponent } from './assign-resident-dialog/assign-r
     MatSlideToggle,
     FormsModule,
     MatInput,
+    MatCard,
+    MatCardHeader,
   ],
   templateUrl: './accommodation.component.html',
   styleUrl: './accommodation.component.scss',
@@ -110,6 +111,18 @@ export class AccommodationComponent implements OnInit {
         : true;
 
       return matchesRoomNumber && matchesResidentName && isAvailable;
+    });
+  }
+
+  openResidentDetailDialog(resident: Resident, room: Room) {
+    const dialogRef = this.dialog.open(ResidentDetailDialogComponent, {
+      data: { resident, room },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'unassigned') {
+        this.loadRooms();
+      }
     });
   }
 }

@@ -25,12 +25,29 @@
     <mat-expansion-panel *ngFor="let room of filteredRooms(rooms)">
       <mat-expansion-panel-header>
         Room {{ room.number }} ({{ room.numOfResidents }}/{{ room.capacity }})
+        <span
+          *ngIf="room.numOfResidents < room.capacity; else fullRoom"
+          style="color: green; margin-left: 8px"
+        >
+          - Free
+        </span>
+        <ng-template #fullRoom>
+          <span style="color: red; margin-left: 8px">- Full</span>
+        </ng-template>
       </mat-expansion-panel-header>
+
       <mat-card-content>
-        <p><strong>Capacity:</strong> capacity</p>
+        <p>
+          <strong>Available spots:</strong>
+          {{ room.capacity - room.numOfResidents }}
+        </p>
         <p><strong>Residents:</strong></p>
 
-        <mat-chip *ngFor="let resident of room.residents" color="primary">
+        <mat-chip
+          *ngFor="let resident of room.residents"
+          color="primary"
+          (click)="openResidentDetailDialog(resident, room)"
+        >
           {{ resident.name }}
         </mat-chip>
       </mat-card-content>
@@ -49,17 +66,6 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-
-<!--<div *ngIf="resident$ | async as residents; else loading">-->
-<!--  <mat-card-content>-->
-<!--    <p><strong>Capacity:</strong> capacity</p>-->
-<!--    <p><strong>Residents:</strong></p>-->
-
-<!--    <mat-chip *ngFor="let resident of residents" color="primary">-->
-<!--      {{ resident.name }}-->
-<!--    </mat-chip>-->
-<!--  </mat-card-content>-->
-<!--</div>-->
 
 <ng-template #loading>
   <p>Loading rooms...</p>
