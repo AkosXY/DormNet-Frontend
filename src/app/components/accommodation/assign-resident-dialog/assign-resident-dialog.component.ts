@@ -10,11 +10,16 @@ import {
 import { AccommodationService } from '../../../services/api/accommodation.service';
 import { Room } from '../../../model/room';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
+import {
+  MatAutocomplete,
+  MatAutocompleteSelectedEvent,
+  MatAutocompleteTrigger,
+} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-assign-resident-dialog',
@@ -23,13 +28,16 @@ import { MatButton } from '@angular/material/button';
     MatDialogContent,
     MatFormField,
     MatOption,
-    MatSelect,
+    MatAutocomplete,
     MatDialogActions,
     MatButton,
     MatLabel,
+    MatSelectModule,
     FormsModule,
     NgForOf,
     MatInput,
+    MatAutocomplete,
+    MatAutocompleteTrigger,
   ],
   templateUrl: './assign-resident-dialog.component.html',
   styleUrl: './assign-resident-dialog.component.scss',
@@ -37,7 +45,7 @@ import { MatButton } from '@angular/material/button';
 export class AssignResidentDialogComponent implements OnInit {
   residents: Resident[] = [];
   selectedResident: Resident | null = null;
-  searchTerm: string = '';
+  searchTerm: string | Resident = '';
 
   constructor(
     public dialogRef: MatDialogRef<AssignResidentDialogComponent>,
@@ -46,24 +54,37 @@ export class AssignResidentDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.accommodationService.getAllResidents().subscribe((residents) => {
-      this.residents = residents;
-    });
+    this.accommodationService
+      .getUnassignedResidents()
+      .subscribe((residents) => {
+        this.residents = residents;
+      });
   }
 
   assignResident() {
+    console.log(this.selectedResident);
+
     if (this.selectedResident) {
+      console.log('selected:' + this.selectedResident);
       this.accommodationService
         .assignResidentToRoom(this.selectedResident.id, this.data.room.id)
         .subscribe(() => {
-          this.dialogRef.close();
+          this.dialogRef.close('assigned');
         });
     }
   }
 
   filteredResidents(): Resident[] {
-    return this.residents.filter((resident) =>
-      resident.name.toLowerCase().includes(this.searchTerm.toLowerCase()),
-    );
+    const term =
+      typeof this.searchTerm === 'string' ? this.searchTerm.toLowerCase() : '';
+    return this.residents.filter((r) => r.name.toLowerCase().includes(term));
+  }
+
+  displayResident(resident: Resident): string {
+    return resident ? resident.name : '';
+  }
+
+  onResidentSelected(event: MatAutocompleteSelectedEvent): void {
+    this.selectedResident = event.option.value;
   }
 }

@@ -25,6 +25,10 @@ export class AccommodationService {
     return this.http.get(`${this.baseUrl}/resident`);
   }
 
+  getUnassignedResidents(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/resident/unassigned`);
+  }
+
   createResident(residentData: {
     name: string;
     room: { id: number };

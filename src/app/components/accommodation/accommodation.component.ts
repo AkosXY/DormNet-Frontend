@@ -60,11 +60,7 @@ export class AccommodationComponent implements OnInit {
   accommodationService: AccommodationService = inject(AccommodationService);
 
   ngOnInit() {
-    this.rooms$ = this.accommodationService.getAllRooms().pipe(
-      tap((data) => {
-        console.log(data);
-      }),
-    );
+    this.loadRooms();
 
     this.resident$ = this.accommodationService.getAllResidents().pipe(
       tap((data) => {
@@ -73,9 +69,23 @@ export class AccommodationComponent implements OnInit {
     );
   }
 
+  loadRooms() {
+    this.rooms$ = this.accommodationService.getAllRooms().pipe(
+      tap((data) => {
+        console.log(data);
+      }),
+    );
+  }
+
   openAssignResidentDialog(room: Room) {
-    this.dialog.open(AssignResidentDialogComponent, {
+    const dialogRef = this.dialog.open(AssignResidentDialogComponent, {
       data: { room },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'assigned') {
+        this.loadRooms();
+      }
     });
   }
 
