@@ -1,6 +1,12 @@
-<h1 mat-dialog-title>Assign Resident to Room {{ data.room.number }}</h1>
+<div class="button-close">
+  <h1 mat-dialog-title>Assign Resident to Room {{ data.room.number }}</h1>
+  <button mat-mini-fab matTooltip="close" color="none" matDialogClose>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
 <div mat-dialog-content>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Select Resident</mat-label>
 
     <input
@@ -10,7 +16,7 @@
       [(ngModel)]="searchTerm"
       placeholder="Search by name"
     />
-
+    <mat-icon matSuffix>search</mat-icon>
     <mat-autocomplete
       #auto="matAutocomplete"
       [displayWith]="displayResident"

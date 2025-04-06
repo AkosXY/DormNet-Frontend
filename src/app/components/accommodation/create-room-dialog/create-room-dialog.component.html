@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="button-close">
+    <h1>Add details:</h1>
+    <button mat-mini-fab matTooltip="Primary" color="none" matDialogClose>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form class="form" [formGroup]="submitForm">
+    <div class="form-subsection">
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>Room number</mat-label>
+        <input
+          matInput
+          placeholder="enter room number"
+          formControlName="numberForm"
+          type="text"
+        />
+        <mat-icon matSuffix>hotel</mat-icon>
+        <mat-error *ngIf="numberForm?.errors?.['required']">
+          room number required
+        </mat-error>
+      </mat-form-field>
+
+      <div class="slider-container">
+        <mat-label class="slider-label"
+          >Room capacity: {{ capacity }}
+        </mat-label>
+
+        <mat-slider class="slider" [max]="10" [min]="1" [step]="1">
+          <input
+            matSliderThumb
+            [(ngModel)]="capacity"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </mat-slider>
+      </div>
+    </div>
+  </form>
+
+  <mat-dialog-actions class="button-container">
+    <button mat-button (click)="dialogRef.close()">Cancel</button>
+    <button mat-button color="primary" (click)="submit()">Save</button>
+  </mat-dialog-actions>
+</div>

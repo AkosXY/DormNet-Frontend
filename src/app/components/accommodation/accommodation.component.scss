@@ -16,6 +16,27 @@
     color: white;
   }
 
-
-
 }
+
+.chart-container {
+  width: 100%;
+  max-width: 600px;
+  height: fit-content;
+  padding-bottom: 20px;
+}
+
+.search-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  mat-form-field {
+    flex: 1 1 200px;
+  }
+
+  mat-slide-toggle {
+    align-self: center;
+  }
+}
+
+

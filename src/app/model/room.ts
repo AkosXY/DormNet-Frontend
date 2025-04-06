@@ -1,9 +1,12 @@
 import { Resident } from './resident';
 
-export interface Room {
-  id: number;
+export interface RoomBase {
   number: string;
   capacity: number;
   numOfResidents: number;
+}
+
+export interface Room extends RoomBase {
+  id: number;
   residents: Resident[];
 }

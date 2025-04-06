@@ -1,23 +1,25 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Room Occupancy</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div *ngIf="rooms$ | async as rooms">
-      <div style="width: 100%; height: 400px">
-        <canvas
-          baseChart
-          [data]="roomChartData"
-          [options]="chartOptions"
-          chartType="bar"
-        ></canvas>
+<div class="chart-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Room Occupancy</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="rooms$ | async as rooms">
+        <div>
+          <canvas
+            baseChart
+            [data]="roomChartData"
+            [options]="chartOptions"
+            chartType="bar"
+          ></canvas>
+        </div>
       </div>
-    </div>
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>
 
-<div>
-  <mat-form-field appearance="fill">
+<div class="search-controls">
+  <mat-form-field appearance="outline">
     <mat-label>Search by Room Number</mat-label>
     <input
       matInput
@@ -25,9 +27,10 @@
       (ngModelChange)="onSearchRoomNumberChange()"
       placeholder="Room number"
     />
+    <mat-icon matSuffix>sort</mat-icon>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Search by Resident Name</mat-label>
     <input
       matInput
@@ -35,6 +38,7 @@
       (ngModelChange)="onSearchResidentNameChange()"
       placeholder="Resident name"
     />
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
   <mat-slide-toggle
@@ -43,6 +47,11 @@
   >
     Show Only Available Rooms
   </mat-slide-toggle>
+
+  <button mat-fab extended color="none" (click)="onRoomCreate()">
+    <mat-icon>add</mat-icon>
+    Add room
+  </button>
 </div>
 
 <div *ngIf="rooms$ | async; else loading">
@@ -83,6 +92,7 @@
           mat-button
           color="primary"
           (click)="openAssignResidentDialog(room)"
+          [disabled]="room.numOfResidents == room.capacity"
         >
           Assign Resident
         </button>
@@ -92,7 +102,7 @@
   </mat-accordion>
 
   <mat-paginator
-    [length]="totalRooms"
+    [length]="filteredRoomsList.length"
     [pageSize]="pageSize"
     [pageIndex]="pageIndex"
     (page)="onPageChange($event)"

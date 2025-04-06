@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -18,13 +18,18 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { MatChip } from '@angular/material/chips';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatFabButton } from '@angular/material/button';
 import {
   MatAccordion,
   MatExpansionPanel,
   MatExpansionPanelHeader,
 } from '@angular/material/expansion';
-import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import {
+  MatFormField,
+  MatInput,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -33,6 +38,8 @@ import { ResidentDetailDialogComponent } from './resident-detail-dialog/resident
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart, ChartOptions, registerables } from 'chart.js';
 import { MatPaginator } from '@angular/material/paginator';
+import { CreateRoomDialogComponent } from './create-room-dialog/create-room-dialog.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-accommodation',
@@ -57,15 +64,20 @@ import { MatPaginator } from '@angular/material/paginator';
     MatCardHeader,
     MatPaginator,
     BaseChartDirective,
+    MatIcon,
+    MatFabButton,
+    MatSuffix,
   ],
   templateUrl: './accommodation.component.html',
   styleUrl: './accommodation.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class AccommodationComponent implements OnInit {
   rooms$: Observable<Room[]> | undefined;
   loadedRooms: Room[] = [];
   filteredRoomsList: Room[] = [];
   paginatedRooms: Room[] = [];
+
   roomChartData: any;
   roomLabels: string[] | undefined;
   resident$: Observable<Resident[]> | undefined;
@@ -80,7 +92,6 @@ export class AccommodationComponent implements OnInit {
 
   pageSize: number = 5;
   pageIndex: number = 0;
-  totalRooms: number = 0;
 
   dialog: MatDialog = inject(MatDialog);
   accommodationService: AccommodationService = inject(AccommodationService);
@@ -101,7 +112,6 @@ export class AccommodationComponent implements OnInit {
       tap((data) => {
         this.loadedRooms = data;
         this.filteredRoomsList = this.filteredRooms(this.loadedRooms);
-        this.totalRooms = this.filteredRoomsList.length;
         this.updatePaginatedRooms();
         this.updateChartData(this.paginatedRooms);
       }),
@@ -122,10 +132,7 @@ export class AccommodationComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.updatePaginatedRooms();
-    const filteredPaginatedRooms = this.getPaginatedRooms(
-      this.filteredRoomsList,
-    );
-    this.updateChartData(filteredPaginatedRooms);
+    this.updateChartData(this.paginatedRooms);
   }
 
   filteredRooms(rooms: Room[]): Room[] {
@@ -155,6 +162,7 @@ export class AccommodationComponent implements OnInit {
   openAssignResidentDialog(room: Room) {
     const dialogRef = this.dialog.open(AssignResidentDialogComponent, {
       data: { room },
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -197,6 +205,7 @@ export class AccommodationComponent implements OnInit {
 
   chartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       tooltip: {},
     },
@@ -247,5 +256,16 @@ export class AccommodationComponent implements OnInit {
 
   onSearchResidentNameChange() {
     this.searchResidentNameSubject.next(this.searchResidentName);
+  }
+
+  onRoomCreate() {
+    const dialogRef = this.dialog.open(CreateRoomDialogComponent, {
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'refresh') {
+        this.loadRooms();
+      }
+    });
   }
 }

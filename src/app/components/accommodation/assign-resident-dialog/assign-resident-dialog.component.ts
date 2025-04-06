@@ -3,6 +3,7 @@ import { Resident } from '../../../model/resident';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
+  MatDialogClose,
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle,
@@ -14,12 +15,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import {
   MatAutocomplete,
   MatAutocompleteSelectedEvent,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-assign-resident-dialog',
@@ -38,6 +41,10 @@ import {
     MatInput,
     MatAutocomplete,
     MatAutocompleteTrigger,
+    MatDialogClose,
+    MatIcon,
+    MatMiniFabButton,
+    MatTooltip,
   ],
   templateUrl: './assign-resident-dialog.component.html',
   styleUrl: './assign-resident-dialog.component.scss',

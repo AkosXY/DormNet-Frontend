@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Room, RoomBase } from '../../model/room';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +15,10 @@ export class AccommodationService {
     return this.http.get(`${this.baseUrl}/rooms`);
   }
 
-  createRoom(roomData: {
-    capacity: number;
-    numOfResidents: number;
-  }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/rooms`, roomData);
+  createRoom(roomData: RoomBase): Observable<boolean> {
+    return this.http
+      .post(`${this.baseUrl}/rooms`, roomData, { observe: 'response' })
+      .pipe(map((resp) => resp.status == 201));
   }
 
   getAllResidents(): Observable<any> {
