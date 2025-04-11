@@ -109,7 +109,7 @@ export class ResidentComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
-        console.log('refresh');
+        this.initTable();
       }
     });
   }

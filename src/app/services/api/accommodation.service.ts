@@ -2,7 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Room, RoomBase } from '../../model/room';
+import { RoomBase } from '../../model/room';
+import { ResidentBase } from '../../model/resident';
 
 @Injectable({
   providedIn: 'root',
@@ -29,10 +30,7 @@ export class AccommodationService {
     return this.http.get(`${this.baseUrl}/resident/unassigned`);
   }
 
-  createResident(residentData: {
-    name: string;
-    room: { id: number };
-  }): Observable<any> {
+  createResident(residentData: ResidentBase): Observable<any> {
     return this.http.post(`${this.baseUrl}/resident`, residentData);
   }
 

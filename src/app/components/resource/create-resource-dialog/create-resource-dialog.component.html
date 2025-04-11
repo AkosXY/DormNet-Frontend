@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="button-close">
+    <h1>Add Resource:</h1>
+    <button mat-mini-fab matTooltip="Close" color="none" matDialogClose>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form class="form" [formGroup]="submitForm">
+    <div class="form-subsection">
+      <mat-form-field appearance="outline">
+        <mat-label>Resource Name</mat-label>
+        <input matInput formControlName="name" />
+        <mat-icon matSuffix>print</mat-icon>
+        <mat-error *ngIf="submitForm.controls['name'].hasError('required')">
+          Resource Name is required
+        </mat-error>
+      </mat-form-field>
+      <div class="available-toggle">
+        <mat-label>Available</mat-label>
+        <mat-slide-toggle
+          formControlName="available"
+          color="primary"
+        ></mat-slide-toggle>
+      </div>
+    </div>
+  </form>
+
+  <div class="button-container">
+    <mat-dialog-actions class="button-container">
+      <button mat-button (click)="dialogRef.close()">Cancel</button>
+      <button
+        mat-button
+        color="primary"
+        (click)="submit()"
+        [disabled]="submitForm.invalid"
+      >
+        Save
+      </button>
+    </mat-dialog-actions>
+  </div>
+</div>

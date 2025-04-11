@@ -1,0 +1,42 @@
+.container {
+  padding: 24px;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #fff;
+
+
+  .button-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .form-subsection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
