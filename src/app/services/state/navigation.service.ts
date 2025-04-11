@@ -23,6 +23,12 @@ export class NavigationService {
       description: 'Find and book your perfect stay.',
     },
     {
+      label: 'Residents',
+      icon: 'group',
+      route: 'residents',
+      description: 'Manage residents.',
+    },
+    {
       label: 'Resources',
       icon: 'local_laundry_service',
       route: 'resources',

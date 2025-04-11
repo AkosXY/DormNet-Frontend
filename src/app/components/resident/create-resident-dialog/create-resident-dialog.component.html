@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="button-close">
+    <h1>Add details:</h1>
+    <button mat-mini-fab matTooltip="Primary" color="none" matDialogClose>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form class="form" [formGroup]="submitForm">
+    <div class="form-subsection">
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>name</mat-label>
+        <input
+          matInput
+          placeholder="enter your name"
+          formControlName="nameForm"
+          type="text"
+        />
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="nameForm?.errors?.['required']">
+          name required
+        </mat-error>
+        <mat-error *ngIf="nameForm?.errors?.['minlength']">
+          name must be at least 5 characters long
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>username</mat-label>
+        <input
+          matInput
+          placeholder="enter your username"
+          formControlName="usernameForm"
+          type="text"
+        />
+        <mat-icon matSuffix>badge</mat-icon>
+        <mat-error *ngIf="usernameForm?.errors?.['required']">
+          username required
+        </mat-error>
+        <mat-error *ngIf="usernameForm?.errors?.['minlength']">
+          username must be at least 5 characters long
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-subsection">
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>email</mat-label>
+        <input
+          matInput
+          placeholder="enter phone number"
+          formControlName="emailForm"
+          type="text"
+        />
+        <mat-icon matSuffix>mail</mat-icon>
+        <mat-error *ngIf="emailForm?.errors?.['required']">
+          email required
+        </mat-error>
+        <mat-error *ngIf="emailForm?.errors?.['email']">
+          enter valid email address
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>phone</mat-label>
+        <input
+          matInput
+          placeholder="enter phone number"
+          formControlName="phoneForm"
+          type="text"
+        />
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error *ngIf="phoneForm?.errors?.['required']">
+          phone number required
+        </mat-error>
+        <mat-error *ngIf="phoneForm?.errors?.['minlength']">
+          phone number is too short
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="button-container">
+    <!--    <button mat-raised-button color="none" type="submit" (click)="submit()">-->
+    <!--      Save-->
+    <!--    </button>-->
+
+    <mat-dialog-actions class="button-container">
+      <button mat-button (click)="dialogRef.close()">Cancel</button>
+      <button mat-button color="primary" (click)="submit()">Save</button>
+    </mat-dialog-actions>
+  </div>
+</div>

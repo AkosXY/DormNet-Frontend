@@ -1,0 +1,99 @@
+<h1>Resources:</h1>
+<div>
+  <div class="header-container">
+    <div>
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>Search</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="filter column" #input />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <button mat-fab extended color="none" (click)="onCreate()">
+      <mat-icon>add</mat-icon>
+      Add resident
+    </button>
+  </div>
+  <div class="table-container mat-elevation-z1">
+    <mat-table [dataSource]="dataSource" matSort>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Name
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ 'disabled-row': !element.enabled }"
+        >
+          {{ element.name }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Username
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ 'disabled-row': !element.enabled }"
+        >
+          {{ element.username }}
+        </mat-cell>
+      </ng-container>
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Email
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ 'disabled-row': !element.enabled }"
+        >
+          <a
+            [ngClass]="{
+              'email-link': element.enabled,
+              'disabled-link': !element.enabled,
+            }"
+            [href]="
+              'mailto:' +
+              element.email +
+              '?body=Kedves ' +
+              element.name +
+              '!%0D%0D%0DÜdv,%0D' +
+              getAdminName()
+            "
+            >{{ element.email }}</a
+          >
+        </mat-cell>
+      </ng-container>
+      <!-- Phone Column -->
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Phone
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ 'disabled-row': !element.enabled }"
+        >
+          {{ element.phone }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="enabled">
+        <mat-header-cell *matHeaderCellDef> Enabled </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="disable-ripple">
+          <button mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </ng-container>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" class="footer">
+    </mat-paginator>
+  </div>
+</div>
