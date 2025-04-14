@@ -33,13 +33,10 @@ import {
 import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { CreateResourceDialogComponent } from './create-resource-dialog/create-resource-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-  DateAdapter,
-  NativeDateAdapter,
-  MatNativeDateModule,
-} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ReservationDialogComponent } from './reservation-dialog/reservation-dialog.component';
+
+import { Resource } from '../../model/resource';
 
 @Component({
   selector: 'app-resource',
@@ -128,8 +125,6 @@ export class ResourceComponent implements OnInit {
     serviceCall.subscribe();
   }
 
-  openReservationDialog(element: any) {}
-
   onCreate() {
     const dialogRef = this.dialog.open(CreateResourceDialogComponent, {
       autoFocus: false,
@@ -138,6 +133,18 @@ export class ResourceComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
         this.initTable();
+      }
+    });
+  }
+
+  openReservationDialog(element: Resource) {
+    console.log(element);
+    const dialogRef = this.dialog.open(ReservationDialogComponent, {
+      data: element,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'refresh') {
       }
     });
   }

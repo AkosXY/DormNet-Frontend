@@ -1,0 +1,20 @@
+.step-content{
+  padding-top: 24px;
+}
+
+
+.time-slot-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+
+  button {
+    min-width: 120px;
+    padding: 10px;
+  }
+}
+
+.step-actions {
+  margin-top: 20px;
+}

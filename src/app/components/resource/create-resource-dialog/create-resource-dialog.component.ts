@@ -23,21 +23,13 @@ import {
   MatSuffix,
 } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-  MatNativeDateModule,
-  NativeDateAdapter,
-} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import {
   MatSlideToggle,
   MatSlideToggleModule,
 } from '@angular/material/slide-toggle';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatFormFieldControl } from '@angular/material/form-field';
 import { ResourceService } from '../../../services/api/resource.service';
-import { ResidentBase } from '../../../model/resident';
 import { ResourceBase } from '../../../model/resource';
 
 @Component({

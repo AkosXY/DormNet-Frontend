@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>Reservation for {{ data.name }}</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="reservationForm">
+    <mat-vertical-stepper
+      #stepper
+      [linear]="isLinear"
+      [selectedIndex]="selectedStep"
+    >
+      <mat-step label="Select Reservation Date and Duration">
+        <div class="step-content">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Reservation Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="reservationDate"
+              required
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker" />
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Duration (minutes)</mat-label>
+
+            <input
+              matInput
+              type="number"
+              min="1"
+              max="240"
+              formControlName="duration"
+              required
+            />
+          </mat-form-field>
+
+          <div class="availability-check">
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="checkAvailability(stepper)"
+              [disabled]="!reservationForm.valid"
+            >
+              Check Availability
+            </button>
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step *ngIf="availableTimeSlots.length > 0" label="Available Slots">
+        <div class="time-slot-grid">
+          <button
+            mat-stroked-button
+            color="{{ selectedTimeSlot === slot ? 'primary' : undefined }}"
+            *ngFor="let slot of availableTimeSlots"
+            (click)="onTimeSlotSelect(slot)"
+          >
+            {{ slot.slice(0, 5) }}
+          </button>
+        </div>
+        <p *ngIf="selectedTimeSlotText">{{ selectedTimeSlotText }}</p>
+
+        <div class="step-actions">
+          <button mat-button matStepperPrevious (click)="onPreviousStep()">
+            Back
+          </button>
+        </div>
+      </mat-step>
+
+      <mat-step *ngIf="availableTimeSlots.length === 0" label="No Availability">
+        <div>No available slots for the selected date and duration.</div>
+        <button mat-button matStepperPrevious>Back</button>
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="reserve()"
+    [disabled]="!selectedTimeSlot"
+  >
+    Reserve
+  </button>
+</mat-dialog-actions>
