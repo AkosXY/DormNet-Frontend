@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { NavigationService } from './services/state/navigation.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,13 @@ import {
   MatSidenavContent,
 } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
+import {
+  animate,
+  query,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +34,36 @@ import { MatRippleModule } from '@angular/material/core';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  animations: [
+    trigger('routeAnimation', [
+      transition('* <=> *', [
+        query(
+          ':enter',
+          [
+            style({
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+            }),
+          ],
+          { optional: true },
+        ),
+
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(20px)' }),
+            animate(
+              '200ms ease-in',
+              style({ opacity: 1, transform: 'translateY(0)' }),
+            ),
+          ],
+          { optional: true },
+        ),
+      ]),
+    ]),
+  ],
 })
 export class AppComponent implements OnInit {
   navigationService: NavigationService = inject(NavigationService);
@@ -35,7 +72,10 @@ export class AppComponent implements OnInit {
   collapsed!: Signal<boolean>;
   width!: Signal<string>;
 
-  constructor(protected sidenavService: NavigationService) {}
+  constructor(
+    protected sidenavService: NavigationService,
+    protected route: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
     this.collapsed = this.sidenavService.isCollapsed;

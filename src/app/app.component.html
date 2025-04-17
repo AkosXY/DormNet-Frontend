@@ -1,5 +1,9 @@
 <mat-toolbar class="mat-elevation-z3">
-  <button class="hamburger-icon" mat-icon-button (click)="sidenavService.toggle()">
+  <button
+    class="hamburger-icon"
+    mat-icon-button
+    (click)="sidenavService.toggle()"
+  >
     <mat-icon>menu</mat-icon>
   </button>
   <a class="app-title" (click)="navigateToHome()">DormNet</a>
@@ -10,6 +14,8 @@
     <app-sidenav></app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content class="content" [style.margin-left]="width()">
-    <router-outlet></router-outlet>
+    <div class="animation-wrapper" [@routeAnimation]="route.snapshot.data">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -32,3 +32,9 @@ mat-sidenav-container {
 mat-sidenav {
   transition: width 200ms ease-in-out !important;
 }
+
+
+.animation-wrapper {
+  position: relative;
+  min-height: 100%;
+}
