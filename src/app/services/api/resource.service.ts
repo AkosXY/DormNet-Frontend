@@ -2,12 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResourceBase } from '../../model/resource';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResourceService {
-  private readonly baseUrl = 'http://localhost/api/resource';
+  private readonly baseUrl = environment.baseUrl + '/resource';
 
   http: HttpClient = inject(HttpClient);
 

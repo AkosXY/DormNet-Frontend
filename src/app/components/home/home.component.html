@@ -1,23 +1,32 @@
 <div class="dashboard-container">
-
   <div class="feature-cards">
-    <div class="responsive-grid" [ngStyle]="{'grid-template-columns': columnSelector()}">
-      <app-feature-card *ngFor="let route of routes"
-                        [route]="route">
+    <div
+      class="responsive-grid"
+      [ngStyle]="{ 'grid-template-columns': columnSelector() }"
+    >
+      <app-feature-card *ngFor="let route of routes" [route]="route">
       </app-feature-card>
     </div>
   </div>
 
   <div class="reservations-section">
-    <h2>Active Reservations</h2>
-    <mat-card *ngFor="let reservation of reservations" class="reservation-card">
-      <mat-card-header>
-        <mat-card-title>{{ reservation.resourceId }}</mat-card-title>
-        <mat-card-subtitle>{{ reservation.email }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ reservation.details }}</p>
-      </mat-card-content>
-    </mat-card>
+    <div
+      *ngIf="reservations.length === 0; else reservation_template"
+      class="no-reservations"
+    >
+      <mat-icon>event_busy</mat-icon>
+      <p class="empty-text">You don't have any reservations yet.</p>
+      <a routerLink="/resources" class="create-link">Make one here</a>
+    </div>
+    <ng-template #reservation_template>
+      <h2>My reservations:</h2>
+      <div class="reservations-container">
+        <app-reservation-card
+          *ngFor="let res of reservations"
+          [reservation]="res"
+          (delete)="onDelete($event)"
+        ></app-reservation-card>
+      </div>
+    </ng-template>
   </div>
 </div>

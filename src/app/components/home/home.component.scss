@@ -22,13 +22,22 @@
   margin-top: 30px;
 }
 
-.reservation-card {
-  margin-bottom: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+//.reservation-card {
+//  margin-bottom: 15px;
+//  border-radius: 10px;
+//  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+//  transition: box-shadow 0.3s ease;
+//
+//  &:hover {
+//    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+//  }
+//}
 
-  &:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
+
+.reservations-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
 }
+

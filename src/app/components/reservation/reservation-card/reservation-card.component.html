@@ -1,0 +1,31 @@
+<mat-card class="reservation-card" appearance="outlined">
+  <div class="card-header">
+    <div>
+      <mat-card-title class="resource-name">{{
+        reservation.resourceName
+      }}</mat-card-title>
+    </div>
+    <button
+      mat-icon-button
+      color="warn"
+      aria-label="Cancel Reservation"
+      (click)="onDeleteClick()"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="card-content">
+    <div class="detail-list">
+      <mat-icon>event</mat-icon>
+      {{ reservation.startDate | date: "yyyy-MM-dd" }}<br />
+      <mat-icon>schedule</mat-icon>
+      {{ reservation.startDate | date: "HH:mm" }} -
+      {{ reservation.stopDate | date: "HH:mm" }}<br />
+      <mat-icon>hourglass_empty</mat-icon>
+      Duration: {{ getDuration(reservation.startDate, reservation.stopDate) }}
+    </div>
+  </div>
+</mat-card>

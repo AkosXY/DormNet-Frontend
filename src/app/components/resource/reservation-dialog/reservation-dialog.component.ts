@@ -1,4 +1,4 @@
-import { Component, inject, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -21,7 +21,6 @@ import {
 import { MatButton } from '@angular/material/button';
 import { formatISO } from 'date-fns';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -41,8 +40,7 @@ import {
   MatStepper,
   MatStepperPrevious,
 } from '@angular/material/stepper';
-import { DatePipe, NgForOf, NgIf } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
+import { NgForOf, NgIf } from '@angular/common';
 import { Resource } from '../../../model/resource';
 
 @Component({
@@ -92,7 +90,6 @@ import { Resource } from '../../../model/resource';
   ],
 })
 export class ReservationDialogComponent {
-  //reservationForm: FormGroup;
   isLinear = false;
   availableTimeSlots: string[] = [];
   isAvailable = false;
@@ -155,6 +152,7 @@ export class ReservationDialogComponent {
     }
 
     const id = this.data.id;
+    const name = this.data.name;
     const startDate = this.formatDateForApi(
       this.reservationDate?.value,
       this.selectedTimeSlot,
@@ -165,7 +163,7 @@ export class ReservationDialogComponent {
     );
 
     this.reservationService
-      .placeReservation(id, startDate, stopDate)
+      .placeReservation(id, name, startDate, stopDate)
       .subscribe({
         next: (response) => {
           console.log('Reservation:', response);
