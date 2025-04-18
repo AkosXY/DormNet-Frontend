@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { SportEntry } from '../../model/sport';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class SportService {
 
   addEntryToSportEvent(
     sportEventId: string,
-    entry: { participantName: string; score: number },
+    entry: SportEntry,
   ): Observable<any> {
     console.log(sportEventId);
     console.log(entry);
@@ -34,5 +35,18 @@ export class SportService {
 
   deleteSportEvent(sportEventId: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${sportEventId}`);
+  }
+
+  deleteEntryFromSportEvent(
+    sportEventId: string,
+    entry: SportEntry,
+  ): Observable<any> {
+    return this.http.request(
+      'delete',
+      `${this.baseUrl}/${sportEventId}/delete_entry`,
+      {
+        body: entry,
+      },
+    );
   }
 }

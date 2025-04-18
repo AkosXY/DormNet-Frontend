@@ -31,3 +31,9 @@ mat-card {
   font-size: 13px;
   color: gray;
 }
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
