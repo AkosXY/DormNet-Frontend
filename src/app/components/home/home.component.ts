@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
 
   getReservations() {
     this.reservationService
-      .getMyReservations()
+      .getMyActiveReservations()
       .subscribe((reservations) => (this.reservations = reservations));
   }
 
@@ -79,35 +79,6 @@ export class HomeComponent implements OnInit {
       return 'repeat(2, 1fr)';
     } else return 'repeat(1, 1fr)';
   });
-
-  // getDuration(start: string, stop: string): string {
-  //   const s = new Date(start);
-  //   const e = new Date(stop);
-  //   const diffMs = e.getTime() - s.getTime();
-  //   const diffMins = diffMs / 60000;
-  //
-  //   if (diffMins < 60) return `${diffMins} min`;
-  //   const hours = Math.floor(diffMins / 60);
-  //   const mins = diffMins % 60;
-  //   return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
-  // }
-
-  // onDelete(reservation: Reservation) {
-  //   console.log(reservation);
-  //   this.dialog
-  //     .open(ConfirmDialogComponent, {
-  //       data: 'Are you sure you want to cancel this reservation?',
-  //     })
-  //     .afterClosed()
-  //     .subscribe((confirmed) => {
-  //       if (confirmed) {
-  //         this.reservationService.dropReservation(reservation.id).subscribe({
-  //           next: () => this.getReservations(),
-  //           error: (err) => console.error('Failed to cancel reservation', err),
-  //         });
-  //       }
-  //     });
-  // }
 
   onDelete(reservation: Reservation) {
     console.log(reservation);

@@ -8,6 +8,8 @@ import {
 } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/list';
 
 @Component({
   selector: 'app-feature-card',
@@ -18,6 +20,8 @@ import { RouterLink } from '@angular/router';
     MatIcon,
     MatCardContent,
     RouterLink,
+    MatButton,
+    MatDivider,
   ],
   templateUrl: './feature-card.component.html',
   styleUrl: './feature-card.component.scss',

@@ -3,4 +3,5 @@ export interface Route {
   icon: string;
   route: string;
   description: string;
+  showOnHomepage?: boolean;
 }

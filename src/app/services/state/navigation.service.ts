@@ -15,36 +15,44 @@ export class NavigationService {
       icon: 'dashboard',
       route: 'home',
       description: 'Get quick insights and manage your overview.',
+      showOnHomepage: false,
     },
     {
       label: 'Rooms',
       icon: 'hotel',
       route: 'accommodations',
-      description: 'Find and book your perfect stay.',
+      description: 'Assign residents to rooms and manage accommodations.',
+      showOnHomepage: true,
     },
     {
       label: 'Residents',
       icon: 'group',
       route: 'residents',
-      description: 'Manage residents.',
+      description: 'Add, view, and manage resident profiles and information.',
+      showOnHomepage: true,
     },
     {
       label: 'Resources',
       icon: 'local_laundry_service',
       route: 'resources',
-      description: 'Access guides, documents, and more.',
+      description:
+        'Access shared facilities, documents, and reservation options.',
+      showOnHomepage: true,
     },
     {
       label: 'Reservations',
       icon: 'event',
       route: 'reservations',
-      description: 'Manage your upcoming bookings easily.',
+      description: 'Track and manage reservations for shared resources.',
+      showOnHomepage: false,
     },
     {
       label: 'Sports',
       icon: 'sports_soccer',
       route: 'sports',
-      description: 'Join exciting sports events and activities.',
+      description:
+        'Sign up for dorm tournaments and exciting sports activities.',
+      showOnHomepage: true,
     },
   ];
 
@@ -63,9 +71,7 @@ export class NavigationService {
   getFilteredRoutes(): Route[] {
     const currentRoute = this.router.url.split('/')[1];
 
-    return currentRoute === 'home'
-      ? this.routes.filter((route) => route.route !== 'home')
-      : this.routes;
+    return this.routes.filter((route) => route.showOnHomepage !== false);
   }
 
   navigateToHome(): void {

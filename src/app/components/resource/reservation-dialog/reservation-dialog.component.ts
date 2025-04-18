@@ -19,7 +19,7 @@ import {
   MatSuffix,
 } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
-import { formatISO } from 'date-fns';
+import { format, formatISO } from 'date-fns';
 import {
   FormControl,
   FormGroup,
@@ -42,6 +42,7 @@ import {
 } from '@angular/material/stepper';
 import { NgForOf, NgIf } from '@angular/common';
 import { Resource } from '../../../model/resource';
+import { ReservationBase } from '../../../model/reservation';
 
 @Component({
   imports: [
@@ -126,11 +127,7 @@ export class ReservationDialogComponent {
 
     console.log(this.data);
     this.reservationService
-      .getAvailableTimeSlots(
-        this.data.id,
-        formattedDate,
-        this.duration?.value || 90,
-      )
+      .getAvailableTimeSlots(this.data.id, formattedDate, this.duration?.value!)
       .subscribe({
         next: (slots) => {
           this.availableTimeSlots = slots;
@@ -145,35 +142,38 @@ export class ReservationDialogComponent {
   }
 
   reserve() {
-    console.log(this.selectedTimeSlot);
     if (!this.selectedTimeSlot) {
       console.error('No time slot selected');
       return;
     }
 
-    const id = this.data.id;
-    const name = this.data.name;
+    const { id: resourceId, name: resourceName } = this.data;
+    const duration = this.duration?.value!;
     const startDate = this.formatDateForApi(
       this.reservationDate?.value,
       this.selectedTimeSlot,
     );
-    const stopDate = this.calculateStopDate(
-      startDate,
-      this.duration?.value || 90,
-    );
+    const stopDate = this.calculateStopDate(startDate, duration);
 
-    this.reservationService
-      .placeReservation(id, name, startDate, stopDate)
-      .subscribe({
-        next: (response) => {
-          console.log('Reservation:', response);
-          this.dialogRef.close();
-        },
-        error: (error) => {
-          console.error('Error placing reservation:', error);
-        },
-      });
+    const newReservation: ReservationBase = {
+      resourceId,
+      resourceName,
+      startDate: format(new Date(startDate), "yyyy-MM-dd'T'HH:mm:ss"),
+      stopDate: format(new Date(stopDate), "yyyy-MM-dd'T'HH:mm:ss"),
+    };
+
+    console.log(newReservation);
+    this.reservationService.placeReservation(newReservation).subscribe({
+      next: (response) => {
+        console.log('Reservation:', response);
+        this.dialogRef.close();
+      },
+      error: (error) => {
+        console.error('Error placing reservation:', error);
+      },
+    });
   }
+
   private formatDateForApi(date: any, time: string): string {
     const formattedDate = new Date(date);
     const timeParts = time.split(':');
@@ -198,7 +198,7 @@ export class ReservationDialogComponent {
     this.selectedTimeSlot = slot;
     this.selectedTimeSlotText = this.formatTimeSlotText(
       slot,
-      this.duration?.value || 90,
+      this.duration?.value!,
     );
   }
 

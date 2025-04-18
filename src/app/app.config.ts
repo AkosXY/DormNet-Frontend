@@ -11,6 +11,7 @@ import {
 } from 'keycloak-angular';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
 
 const urlCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
   urlPattern: /^(http:\/\/localhost)(\/.*)?$/i,
@@ -39,5 +40,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
     provideAnimations(),
+    DatePipe,
   ],
 };

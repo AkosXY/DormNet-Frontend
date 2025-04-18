@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { format } from 'date-fns';
 import { environment } from '../../../environments/environment';
+import { ReservationBase } from '../../model/reservation';
 
 @Injectable({
   providedIn: 'root',
@@ -12,19 +12,8 @@ export class ReservationService {
 
   http: HttpClient = inject(HttpClient);
 
-  placeReservation(
-    resourceId: number,
-    resourceName: string,
-    startDate: string,
-    stopDate: string,
-  ): Observable<any> {
-    const body = {
-      resourceId,
-      resourceName,
-      startDate: format(new Date(startDate), "yyyy-MM-dd'T'HH:mm:ss"),
-      stopDate: format(new Date(stopDate), "yyyy-MM-dd'T'HH:mm:ss"),
-    };
-    return this.http.post(`${this.baseUrl}/reserve`, body, {
+  placeReservation(reservation: ReservationBase): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reserve`, reservation, {
       responseType: 'text',
     });
   }
@@ -33,8 +22,16 @@ export class ReservationService {
     return this.http.get(`${this.baseUrl}/all`);
   }
 
+  getActiveReservations(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/allActive`);
+  }
+
   getMyReservations(): Observable<any> {
     return this.http.get(`${this.baseUrl}/reservations`);
+  }
+
+  getMyActiveReservations(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/activeReservations`);
   }
 
   dropReservation(id: number): Observable<any> {

@@ -1,12 +1,12 @@
 export interface ReservationBase {
   resourceId: number;
-  resourceName: number;
-  reservationNumber: string;
+  resourceName: string;
   startDate: string;
   stopDate: string;
-  email: string;
 }
 
 export interface Reservation extends ReservationBase {
   id: number;
+  reservationNumber: string;
+  email: string;
 }

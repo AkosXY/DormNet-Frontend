@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="button-close">
+    <h1>Add Resource:</h1>
+    <button mat-mini-fab matTooltip="Close" color="none" matDialogClose>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form class="form" [formGroup]="submitForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Participant Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-error *ngIf="submitForm.controls['name'].hasError('required')">
+        Participant Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Score</mat-label>
+      <input matInput formControlName="score" type="number" />
+      <mat-icon matSuffix>emoji_events</mat-icon>
+      <mat-error *ngIf="submitForm.controls['score'].hasError('required')">
+        Score is required
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <div class="button-container">
+    <mat-dialog-actions class="button-container">
+      <button mat-button (click)="dialogRef.close()">Cancel</button>
+      <button
+        mat-button
+        color="primary"
+        (click)="submit()"
+        [disabled]="submitForm.invalid"
+      >
+        Save
+      </button>
+    </mat-dialog-actions>
+  </div>
+</div>
