@@ -1,10 +1,13 @@
-.disabled-row{
+.disabled-row {
   color: rgb(150, 150, 150);
 }
 
-.header-container{
+.header-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
+  button {
+    margin-bottom: 10px;
+  }
 }
-

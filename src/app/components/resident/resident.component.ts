@@ -59,7 +59,7 @@ import { CreateResidentDialogComponent } from './create-resident-dialog/create-r
   styleUrl: './resident.component.scss',
 })
 export class ResidentComponent {
-  displayedColumns = ['name', 'username', 'email', 'phone'];
+  displayedColumns = ['name', 'username', 'contact'];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

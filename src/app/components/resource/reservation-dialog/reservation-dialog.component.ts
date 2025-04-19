@@ -71,24 +71,6 @@ import { ReservationBase } from '../../../model/reservation';
   selector: 'app-reservation-dialog',
   styleUrl: './reservation-dialog.component.scss',
   templateUrl: './reservation-dialog.component.html',
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'hu-HU' },
-    { provide: DateAdapter, useClass: NativeDateAdapter },
-    {
-      provide: MAT_DATE_FORMATS,
-      useValue: {
-        parse: {
-          dateInput: ['DD.MM.YYYY', 'YYYY.MM.DD', 'DD/MM/YYYY'],
-        },
-        display: {
-          dateInput: 'input',
-          monthYearLabel: 'YYYY. MMM',
-          dateA11yLabel: 'YYYY. MMMM D.',
-          monthYearA11yLabel: 'YYYY. MMMM',
-        },
-      },
-    },
-  ],
 })
 export class ReservationDialogComponent {
   isLinear = false;

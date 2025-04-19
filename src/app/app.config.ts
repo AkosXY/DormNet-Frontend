@@ -12,6 +12,12 @@ import {
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  NativeDateAdapter,
+} from '@angular/material/core';
 
 const urlCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
   urlPattern: /^(http:\/\/localhost)(\/.*)?$/i,
@@ -41,5 +47,22 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
     provideAnimations(),
     DatePipe,
+
+    { provide: MAT_DATE_LOCALE, useValue: 'hu-HU' },
+    { provide: DateAdapter, useClass: NativeDateAdapter },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: ['DD.MM.YYYY', 'YYYY.MM.DD', 'DD/MM/YYYY'],
+        },
+        display: {
+          dateInput: 'input',
+          monthYearLabel: 'YYYY. MMM',
+          dateA11yLabel: 'YYYY. MMMM D.',
+          monthYearA11yLabel: 'YYYY. MMMM',
+        },
+      },
+    },
   ],
 };

@@ -25,7 +25,8 @@
       {{ reservation.startDate | date: "HH:mm" }} -
       {{ reservation.stopDate | date: "HH:mm" }}<br />
       <mat-icon>hourglass_empty</mat-icon>
-      Duration: {{ getDuration(reservation.startDate, reservation.stopDate) }}
+      Duration:
+      {{ DateUtils.getDuration(reservation.startDate, reservation.stopDate) }}
     </div>
   </div>
 </mat-card>

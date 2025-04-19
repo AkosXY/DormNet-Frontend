@@ -1,4 +1,4 @@
-<h1>Resources:</h1>
+<h1>Residents:</h1>
 <div>
   <div class="header-container">
     <div>
@@ -42,41 +42,32 @@
         </mat-cell>
       </ng-container>
       <!-- Email Column -->
-      <ng-container matColumnDef="email">
+      <ng-container matColumnDef="contact">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Email
+          Contact
         </mat-header-cell>
         <mat-cell
           *matCellDef="let element"
           [ngClass]="{ 'disabled-row': !element.enabled }"
         >
-          <a
-            [ngClass]="{
-              'email-link': element.enabled,
-              'disabled-link': !element.enabled,
-            }"
-            [href]="
-              'mailto:' +
-              element.email +
-              '?body=Kedves ' +
-              element.name +
-              '!%0D%0D%0DÜdv,%0D' +
-              getAdminName()
-            "
-            >{{ element.email }}</a
-          >
-        </mat-cell>
-      </ng-container>
-      <!-- Phone Column -->
-      <ng-container matColumnDef="phone">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Phone
-        </mat-header-cell>
-        <mat-cell
-          *matCellDef="let element"
-          [ngClass]="{ 'disabled-row': !element.enabled }"
-        >
-          {{ element.phone }}
+          <div style="display: flex; flex-direction: column">
+            <a
+              [ngClass]="{
+                'email-link': element.enabled,
+                'disabled-link': !element.enabled,
+              }"
+              [href]="
+                'mailto:' +
+                element.email +
+                '?body=Kedves ' +
+                element.name +
+                '!%0D%0D%0DÜdv,%0D' +
+                getAdminName()
+              "
+              >{{ element.email }}</a
+            >
+            <span>{{ element.phone }}</span>
+          </div>
         </mat-cell>
       </ng-container>
 
