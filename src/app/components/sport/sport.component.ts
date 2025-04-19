@@ -44,6 +44,7 @@ import {
   MatTableDataSource,
 } from '@angular/material/table';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-sport',
@@ -73,8 +74,7 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
     MatRowDef,
     MatRow,
     MatIconButton,
-    MatSort,
-    MatSortHeader,
+    MatPaginator,
   ],
   templateUrl: './sport.component.html',
   styleUrl: './sport.component.scss',
@@ -82,6 +82,10 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 export class SportComponent implements OnInit {
   sportEvents: any[] = [];
   allSportEvents: SportEvent[] = [];
+  pagedSportEvents: SportEvent[] = [];
+  pageSize = 5;
+  pageIndex = 0;
+
   entry = { participantName: '', score: 0 };
   @ViewChild('input', { static: true }) input!: ElementRef;
   dialog: MatDialog = inject(MatDialog);
@@ -127,9 +131,29 @@ export class SportComponent implements OnInit {
 
   applyFilter(value: string) {
     this.currentFilter = value.trim().toLowerCase();
-    this.sportEvents = this.allSportEvents.filter((event) =>
-      event.name.toLowerCase().includes(this.currentFilter),
-    );
+
+    if (!this.currentFilter) {
+      this.sportEvents = [...this.allSportEvents];
+    } else {
+      this.sportEvents = this.allSportEvents.filter((event) =>
+        event.name.toLowerCase().includes(this.currentFilter),
+      );
+    }
+
+    this.pageIndex = 0;
+    this.applyPagination();
+  }
+
+  applyPagination() {
+    const startIndex = this.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedSportEvents = this.sportEvents.slice(startIndex, endIndex);
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.applyPagination();
   }
 
   selectEvent(event: any): void {

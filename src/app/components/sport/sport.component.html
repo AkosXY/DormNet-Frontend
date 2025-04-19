@@ -19,7 +19,7 @@
   <div *ngIf="sportEvents.length === 0" class="no-events">
     No sport events available.
   </div>
-  <div *ngFor="let event of sportEvents" class="event-card">
+  <div *ngFor="let event of pagedSportEvents" class="event-card">
     <mat-expansion-panel
       class="flat-expansion"
       [expanded]="event.showEntries"
@@ -88,4 +88,11 @@
       </div>
     </mat-expansion-panel>
   </div>
+  <mat-paginator
+    [length]="sportEvents.length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
 </div>
