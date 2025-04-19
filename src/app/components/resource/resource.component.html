@@ -58,7 +58,7 @@
             dir="rtl"
             [checked]="element.available"
             color="primary"
-            (toggleChange)="toggleAvailable(element)"
+            (change)="onToggleChange($event, element)"
           ></mat-slide-toggle>
           <mat-icon style="transform: rotate(90deg)">horizontal_rule</mat-icon>
           <button mat-icon-button>

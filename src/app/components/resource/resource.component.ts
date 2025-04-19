@@ -20,7 +20,10 @@ import {
   MatIconButton,
 } from '@angular/material/button';
 import { NgClass } from '@angular/common';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
+import {
+  MatSlideToggle,
+  MatSlideToggleChange,
+} from '@angular/material/slide-toggle';
 import { MatPaginator } from '@angular/material/paginator';
 import { ResourceService } from '../../services/api/resource.service';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -37,6 +40,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReservationDialogComponent } from './reservation-dialog/reservation-dialog.component';
 
 import { Resource } from '../../model/resource';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-resource',
@@ -115,16 +119,6 @@ export class ResourceComponent implements OnInit {
     this.dataSource.filter = value?.trim()?.toLowerCase();
   }
 
-  toggleAvailable(element: any) {
-    element.available = !element.available;
-
-    const serviceCall = element.available
-      ? this.resourceService.makeAvailable(element.id)
-      : this.resourceService.makeUnavailable(element.id);
-
-    serviceCall.subscribe();
-  }
-
   onCreate() {
     const dialogRef = this.dialog.open(CreateResourceDialogComponent, {
       autoFocus: false,
@@ -147,5 +141,39 @@ export class ResourceComponent implements OnInit {
       if (result === 'refresh') {
       }
     });
+  }
+
+  onToggleChange(event: MatSlideToggleChange, element: any) {
+    // User wants to enable
+    if (event.checked) {
+      this.resourceService.makeAvailable(element.id).subscribe({
+        next: () => {
+          element.available = true;
+        },
+        error: () => {
+          event.source.checked = false;
+        },
+      });
+    } else {
+      this.dialog
+        .open(ConfirmDialogComponent, {
+          data: `Are you sure you want to make ${element.name || 'this resource'} unavailable? This will delete all related reservations.`,
+        })
+        .afterClosed()
+        .subscribe((confirmed) => {
+          if (confirmed) {
+            this.resourceService.makeUnavailable(element.id).subscribe({
+              next: () => {
+                element.available = false;
+              },
+              error: () => {
+                event.source.checked = true;
+              },
+            });
+          } else {
+            event.source.checked = true;
+          }
+        });
+    }
   }
 }
