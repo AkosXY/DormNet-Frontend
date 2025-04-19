@@ -85,6 +85,7 @@ export class SportComponent implements OnInit {
   entry = { participantName: '', score: 0 };
   @ViewChild('input', { static: true }) input!: ElementRef;
   dialog: MatDialog = inject(MatDialog);
+  currentFilter = '';
 
   constructor(private sportService: SportService) {}
 
@@ -104,7 +105,7 @@ export class SportComponent implements OnInit {
           ...event,
           showEntries: expandedIds.includes(event.id),
         }));
-        this.sportEvents = [...this.allSportEvents];
+        this.applyFilter(this.currentFilter);
       },
       (error) => {
         console.error('Error loading sport events', error);
@@ -125,9 +126,9 @@ export class SportComponent implements OnInit {
   }
 
   applyFilter(value: string) {
-    const filterValue = value.trim().toLowerCase();
+    this.currentFilter = value.trim().toLowerCase();
     this.sportEvents = this.allSportEvents.filter((event) =>
-      event.name.toLowerCase().includes(filterValue),
+      event.name.toLowerCase().includes(this.currentFilter),
     );
   }
 
