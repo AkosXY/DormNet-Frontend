@@ -1,6 +1,7 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Route } from '../../model/route';
+import Keycloak from 'keycloak-js';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,7 @@ export class NavigationService {
       route: 'reservations',
       description: 'Track and manage reservations for shared resources.',
       showOnHomepage: false,
+      roles: ['admin'],
     },
     {
       label: 'Sports',
@@ -56,7 +58,8 @@ export class NavigationService {
     },
   ];
 
-  constructor(private router: Router) {}
+  private router: Router = inject(Router);
+  private keycloak: Keycloak = inject(Keycloak);
 
   isCollapsed = this.collapsed.asReadonly();
 
@@ -64,14 +67,15 @@ export class NavigationService {
     this.collapsed.set(!this.collapsed());
   }
 
-  public getRoutes() {
-    return this.routes;
+  public getRoutes(): Route[] {
+    return this.routes.filter((route) => {
+      if (!route.roles) return true;
+      return route.roles.some((role) => this.keycloak.hasRealmRole(role));
+    });
   }
 
   getFilteredRoutes(): Route[] {
-    const currentRoute = this.router.url.split('/')[1];
-
-    return this.routes.filter((route) => route.showOnHomepage !== false);
+    return this.getRoutes().filter((route) => route.showOnHomepage !== false);
   }
 
   navigateToHome(): void {

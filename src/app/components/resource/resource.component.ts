@@ -144,7 +144,6 @@ export class ResourceComponent implements OnInit {
   }
 
   onToggleChange(event: MatSlideToggleChange, element: any) {
-    // User wants to enable
     if (event.checked) {
       this.resourceService.makeAvailable(element.id).subscribe({
         next: () => {

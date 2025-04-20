@@ -4,4 +4,5 @@ export interface Route {
   route: string;
   description: string;
   showOnHomepage?: boolean;
+  roles?: string[];
 }

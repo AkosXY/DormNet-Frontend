@@ -18,6 +18,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
@@ -67,15 +68,17 @@ import {
 })
 export class AppComponent implements OnInit {
   navigationService: NavigationService = inject(NavigationService);
+
+  private readonly keycloak: Keycloak = inject(Keycloak);
+  protected sidenavService: NavigationService = inject(NavigationService);
+  protected route: ActivatedRoute = inject(ActivatedRoute);
+
   title = 'dormnet-frontend';
 
   collapsed!: Signal<boolean>;
   width!: Signal<string>;
 
-  constructor(
-    protected sidenavService: NavigationService,
-    protected route: ActivatedRoute,
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     this.collapsed = this.sidenavService.isCollapsed;
@@ -85,5 +88,26 @@ export class AppComponent implements OnInit {
 
   navigateToHome(): void {
     this.navigationService.navigateToHome();
+  }
+
+  async logout() {
+    // if (this.keycloak?.authenticated) {
+    //   console.log('authenticated');
+    //
+    //   const profile = await this.keycloak.loadUserProfile();
+    //   const info = this.keycloak.hasRealmRole('admin');
+    //
+    //   let user = {
+    //     name: `${profile?.firstName} ${profile.lastName}`,
+    //     email: profile?.email,
+    //     username: profile?.username,
+    //   };
+    //   console.log('user', JSON.stringify(profile));
+    //   console.log('user', JSON.stringify(info));
+    // } else {
+    //   console.log('no authenticated');
+    // }
+
+    await this.keycloak.logout();
   }
 }

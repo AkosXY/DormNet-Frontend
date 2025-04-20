@@ -5,6 +5,7 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { SportComponent } from './components/sport/sport.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { ResidentComponent } from './components/resident/resident.component';
+import { AdminRoleGuard } from './guards/AdminRoleGuard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,6 +13,10 @@ export const routes: Routes = [
   { path: 'accommodations', component: AccommodationComponent },
   { path: 'residents', component: ResidentComponent },
   { path: 'resources', component: ResourceComponent },
-  { path: 'reservations', component: ReservationComponent },
+  {
+    path: 'reservations',
+    component: ReservationComponent,
+    canActivate: [AdminRoleGuard],
+  },
   { path: 'sports', component: SportComponent },
 ];

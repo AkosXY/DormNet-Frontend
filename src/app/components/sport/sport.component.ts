@@ -41,10 +41,9 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({
   selector: 'app-sport',
@@ -75,6 +74,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
     MatRow,
     MatIconButton,
     MatPaginator,
+    HasRoleDirective,
   ],
   templateUrl: './sport.component.html',
   styleUrl: './sport.component.scss',

@@ -1,12 +1,18 @@
-<mat-toolbar class="mat-elevation-z3">
-  <button
-    class="hamburger-icon"
-    mat-icon-button
-    (click)="sidenavService.toggle()"
-  >
-    <mat-icon>menu</mat-icon>
+<mat-toolbar class="custom-toolbar mat-elevation-z3">
+  <div class="toolbar-left">
+    <button
+      class="hamburger-icon"
+      mat-icon-button
+      (click)="sidenavService.toggle()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="app-title" (click)="navigateToHome()">DormNet</a>
+  </div>
+
+  <button mat-button (click)="logout()">
+    <mat-icon>logout</mat-icon> logout
   </button>
-  <a class="app-title" (click)="navigateToHome()">DormNet</a>
 </mat-toolbar>
 
 <mat-sidenav-container>

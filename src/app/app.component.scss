@@ -1,13 +1,11 @@
-
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @include mat.core();
 
-
-.hamburger-icon{
-margin-right: 20px;
+.hamburger-icon {
+  margin-right: 20px;
 }
 
-.app-title{
+.app-title {
   cursor: pointer;
   user-select: none;
 }
@@ -16,13 +14,23 @@ margin-right: 20px;
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2);
 }
 
-.content{
+.content {
   padding: 24px;
 }
 
-mat-toolbar{
+mat-toolbar {
   position: relative;
   z-index: 10;
+}
+
+.custom-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
 }
 
 mat-sidenav-container {
@@ -32,7 +40,6 @@ mat-sidenav-container {
 mat-sidenav {
   transition: width 200ms ease-in-out !important;
 }
-
 
 .animation-wrapper {
   position: relative;
