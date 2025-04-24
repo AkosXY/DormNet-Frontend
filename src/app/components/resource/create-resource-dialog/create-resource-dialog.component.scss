@@ -6,8 +6,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  background-color: #fff;
-
 
   .button-close {
     display: flex;
@@ -22,13 +20,15 @@
   }
 
   .form-subsection {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
 
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
-    }
+  .available-toggle {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
   }
 
   mat-form-field {
