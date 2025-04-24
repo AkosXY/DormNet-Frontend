@@ -1,5 +1,7 @@
 .sport-events {
-  padding-bottom: 20px;
+  overflow-y: auto;
+  max-height: 100vh;
+  padding-bottom: 28px;
 }
 
 .event-card {

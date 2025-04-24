@@ -19,6 +19,7 @@ import {
   trigger,
 } from '@angular/animations';
 import Keycloak from 'keycloak-js';
+import { ThemeService } from './services/display/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -77,8 +78,7 @@ export class AppComponent implements OnInit {
 
   collapsed!: Signal<boolean>;
   width!: Signal<string>;
-
-  constructor() {}
+  themeService: ThemeService = inject(ThemeService);
 
   ngOnInit() {
     this.collapsed = this.sidenavService.isCollapsed;
@@ -91,23 +91,12 @@ export class AppComponent implements OnInit {
   }
 
   async logout() {
-    // if (this.keycloak?.authenticated) {
-    //   console.log('authenticated');
-    //
-    //   const profile = await this.keycloak.loadUserProfile();
-    //   const info = this.keycloak.hasRealmRole('admin');
-    //
-    //   let user = {
-    //     name: `${profile?.firstName} ${profile.lastName}`,
-    //     email: profile?.email,
-    //     username: profile?.username,
-    //   };
-    //   console.log('user', JSON.stringify(profile));
-    //   console.log('user', JSON.stringify(info));
-    // } else {
-    //   console.log('no authenticated');
-    // }
-
     await this.keycloak.logout();
+  }
+
+  toggleTheme() {
+    this.themeService.toggle();
+
+    console.log(this.themeService.getSystemTheme());
   }
 }

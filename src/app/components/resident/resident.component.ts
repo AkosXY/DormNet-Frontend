@@ -30,6 +30,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AssignResidentDialogComponent } from '../accommodation/assign-resident-dialog/assign-resident-dialog.component';
 import { CreateResidentDialogComponent } from './create-resident-dialog/create-resident-dialog.component';
 import { HasRoleDirective } from '../../directives/has-role.directive';
+import Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-resident',
@@ -70,6 +71,7 @@ export class ResidentComponent {
 
   accommodationService: AccommodationService = inject(AccommodationService);
   dialog: MatDialog = inject(MatDialog);
+  keycloak: Keycloak = inject(Keycloak);
 
   ngOnInit(): void {
     this.initTable();
@@ -85,7 +87,8 @@ export class ResidentComponent {
   }
 
   getAdminName() {
-    return 'todo name';
+    console.log(this.keycloak.loadUserInfo());
+    return 'todo';
   }
 
   initDebounce() {

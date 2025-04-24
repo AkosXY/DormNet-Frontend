@@ -2,6 +2,12 @@
   color: rgb(150, 150, 150);
 }
 
+.resource-container {
+  overflow-y: auto;
+  max-height: 100vh;
+  padding-bottom: 28px;
+}
+
 .header-container {
   display: flex;
   flex-direction: row;

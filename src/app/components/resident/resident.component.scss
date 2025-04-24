@@ -1,3 +1,9 @@
+.resident-container {
+  overflow-y: auto;
+  max-height: 100vh;
+  padding-bottom: 28px;
+}
+
 .header-container {
   display: flex;
   flex-wrap: wrap;

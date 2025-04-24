@@ -10,9 +10,15 @@
     <a class="app-title" (click)="navigateToHome()">DormNet</a>
   </div>
 
-  <button mat-button (click)="logout()">
-    <mat-icon>logout</mat-icon> logout
-  </button>
+  <div>
+    <button mat-button (click)="toggleTheme()">
+      <mat-icon>contrast</mat-icon> theme
+    </button>
+
+    <button mat-button (click)="logout()">
+      <mat-icon>logout</mat-icon> logout
+    </button>
+  </div>
 </mat-toolbar>
 
 <mat-sidenav-container>

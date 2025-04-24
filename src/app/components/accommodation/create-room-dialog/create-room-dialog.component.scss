@@ -1,37 +1,36 @@
-.container{
+.container {
   width: 100%;
-
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   padding: 10px;
 }
 
-.form-subsection{
+.form-subsection {
   display: flex;
   flex-direction: column;
   padding: 10px;
 }
 
-.button-container{
+.button-container {
   display: flex;
   flex-direction: row;
-  justify-content:center;
+  justify-content: center;
   padding-bottom: 20px;
 }
 
-h1{
+h1 {
   padding-left: 20px;
   margin-bottom: 0;
 }
 
-.button-close{
+.button-close {
   display: flex;
   flex-direction: row;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   padding-top: 20px;
   padding-right: 20px;
@@ -45,10 +44,9 @@ h1{
 .slider-label {
   font-size: 16px;
   font-weight: 500;
-  color: #333;
 }
 
 .slider {
   width: 95%;
-  margin-top: 10px;  /* Optional: Add some space at the top */
+  margin-top: 10px; /* Optional: Add some space at the top */
 }
