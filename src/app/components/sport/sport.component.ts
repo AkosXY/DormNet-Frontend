@@ -44,6 +44,7 @@ import {
 } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { HasRoleDirective } from '../../directives/has-role.directive';
+import Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-sport',
@@ -85,6 +86,8 @@ export class SportComponent implements OnInit {
   pagedSportEvents: SportEvent[] = [];
   pageSize = 5;
   pageIndex = 0;
+  displayedColumns: string[] = [];
+  keycloak: Keycloak = inject(Keycloak);
 
   entry = { participantName: '', score: 0 };
   @ViewChild('input', { static: true }) input!: ElementRef;
@@ -96,6 +99,7 @@ export class SportComponent implements OnInit {
   ngOnInit(): void {
     this.loadSportEvents();
     this.initDebounce();
+    this.initDisplayedColums();
   }
 
   loadSportEvents(): void {
@@ -220,5 +224,13 @@ export class SportComponent implements OnInit {
           });
         }
       });
+  }
+
+  private initDisplayedColums() {
+    this.displayedColumns = ['participantName', 'score'];
+
+    if (this.keycloak.hasRealmRole('admin')) {
+      this.displayedColumns.push('actions');
+    }
   }
 }

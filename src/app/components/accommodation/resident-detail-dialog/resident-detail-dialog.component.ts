@@ -11,6 +11,7 @@ import { AccommodationService } from '../../../services/api/accommodation.servic
 import { Resident } from '../../../model/resident';
 import { Room } from '../../../model/room';
 import { MatButton } from '@angular/material/button';
+import { HasRoleDirective } from '../../../directives/has-role.directive';
 
 @Component({
   selector: 'app-resident-detail-dialog',
@@ -20,6 +21,7 @@ import { MatButton } from '@angular/material/button';
     MatDialogTitle,
     MatButton,
     MatDialogClose,
+    HasRoleDirective,
   ],
   templateUrl: './resident-detail-dialog.component.html',
   styleUrl: './resident-detail-dialog.component.scss',

@@ -10,7 +10,13 @@
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
-    <button mat-fab extended color="none" (click)="onCreate()">
+    <button
+      mat-fab
+      extended
+      color="none"
+      *hasRole="'admin'"
+      (click)="onCreate()"
+    >
       <mat-icon>add</mat-icon>
       Add resource
     </button>

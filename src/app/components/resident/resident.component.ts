@@ -29,6 +29,7 @@ import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AssignResidentDialogComponent } from '../accommodation/assign-resident-dialog/assign-resident-dialog.component';
 import { CreateResidentDialogComponent } from './create-resident-dialog/create-resident-dialog.component';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({
   selector: 'app-resident',
@@ -54,6 +55,7 @@ import { CreateResidentDialogComponent } from './create-resident-dialog/create-r
     MatInput,
     MatFabButton,
     MatSuffix,
+    HasRoleDirective,
   ],
   templateUrl: './resident.component.html',
   styleUrl: './resident.component.scss',

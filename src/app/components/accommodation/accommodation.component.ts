@@ -40,6 +40,7 @@ import { Chart, ChartOptions, registerables } from 'chart.js';
 import { MatPaginator } from '@angular/material/paginator';
 import { CreateRoomDialogComponent } from './create-room-dialog/create-room-dialog.component';
 import { MatIcon } from '@angular/material/icon';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({
   selector: 'app-accommodation',
@@ -67,6 +68,7 @@ import { MatIcon } from '@angular/material/icon';
     MatIcon,
     MatFabButton,
     MatSuffix,
+    HasRoleDirective,
   ],
   templateUrl: './accommodation.component.html',
   styleUrl: './accommodation.component.scss',

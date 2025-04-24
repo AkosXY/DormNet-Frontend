@@ -48,7 +48,13 @@
     Show Only Available Rooms
   </mat-slide-toggle>
 
-  <button mat-fab extended color="none" (click)="onRoomCreate()">
+  <button
+    mat-fab
+    extended
+    color="none"
+    *hasRole="'admin'"
+    (click)="onRoomCreate()"
+  >
     <mat-icon>add</mat-icon>
     Add room
   </button>
@@ -89,6 +95,7 @@
 
       <mat-card-actions>
         <button
+          *hasRole="'admin'"
           mat-button
           color="primary"
           (click)="openAssignResidentDialog(room)"
@@ -96,7 +103,6 @@
         >
           Assign Resident
         </button>
-        <button mat-button color="accent">Details</button>
       </mat-card-actions>
     </mat-expansion-panel>
   </mat-accordion>

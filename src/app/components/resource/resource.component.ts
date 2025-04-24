@@ -41,6 +41,8 @@ import { ReservationDialogComponent } from './reservation-dialog/reservation-dia
 
 import { Resource } from '../../model/resource';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import Keycloak from 'keycloak-js';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({
   selector: 'app-resource',
@@ -69,13 +71,14 @@ import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.
     MatInput,
     MatLabel,
     MatSuffix,
+    HasRoleDirective,
   ],
   templateUrl: './resource.component.html',
   styleUrls: ['./resource.component.scss'],
   providers: [],
 })
 export class ResourceComponent implements OnInit {
-  displayedColumns = ['name', 'available', 'enabled'];
+  displayedColumns: string[] = [];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -83,10 +86,12 @@ export class ResourceComponent implements OnInit {
   dialog: MatDialog = inject(MatDialog);
 
   resourceService: ResourceService = inject(ResourceService);
+  keycloak: Keycloak = inject(Keycloak);
 
   ngOnInit(): void {
     this.initTable();
     this.initDebounce();
+    this.initDisplayedColumns();
   }
 
   initTable() {
@@ -173,6 +178,14 @@ export class ResourceComponent implements OnInit {
             event.source.checked = true;
           }
         });
+    }
+  }
+
+  private initDisplayedColumns() {
+    this.displayedColumns = ['name', 'available'];
+
+    if (this.keycloak.hasRealmRole('admin')) {
+      this.displayedColumns.push('enabled');
     }
   }
 }

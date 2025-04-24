@@ -6,5 +6,12 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button color="warn" (click)="unassignResident()">Unassign</button>
+  <button
+    mat-button
+    color="warn"
+    *hasRole="'admin'"
+    (click)="unassignResident()"
+  >
+    Unassign
+  </button>
 </mat-dialog-actions>
