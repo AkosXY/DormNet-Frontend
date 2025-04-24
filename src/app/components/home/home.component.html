@@ -1,5 +1,5 @@
 <div class="dashboard-container">
-  <div class="feature-cards">
+  <div *ngIf="shouldShowFeatureCards()" class="feature-cards">
     <div
       class="responsive-grid"
       [ngStyle]="{ 'grid-template-columns': columnSelector() }"

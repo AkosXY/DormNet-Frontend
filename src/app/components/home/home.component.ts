@@ -1,25 +1,14 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatCard,
-  MatCardContent,
-  MatCardHeader,
-  MatCardTitle,
-  MatCardSubtitle,
-} from '@angular/material/card';
 import { NavigationService } from '../../services/state/navigation.service';
 import { ResponsiveService } from '../../services/display/responsive.service';
 import { FeatureCardComponent } from '../shared/feature-card/feature-card.component';
 import { ReservationService } from '../../services/api/reservation.service';
 import { MatIcon } from '@angular/material/icon';
-import { MatDivider } from '@angular/material/list';
-import { MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
-import { findTailwindConfigurationFile } from '@angular-devkit/build-angular/src/utils/tailwind';
 import { Reservation } from '../../model/reservation';
 import { RouterLink } from '@angular/router';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { ReservationCardComponent } from '../reservation/reservation-card/reservation-card.component';
 
 @Component({
@@ -33,24 +22,6 @@ import { ReservationCardComponent } from '../reservation/reservation-card/reserv
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  // animations: [
-  //   trigger('fadeIn', [
-  //     transition(':enter', [
-  //       style({ opacity: 0 }),
-  //       animate('300ms ease-in', style({ opacity: 1 })),
-  //     ]),
-  //   ]),
-  //
-  //   trigger('slideIn', [
-  //     transition(':enter', [
-  //       style({ transform: 'translateY(200px)', opacity: 0 }),
-  //       animate(
-  //         '300ms ease-out',
-  //         style({ transform: 'translateY(0)', opacity: 1 }),
-  //       ),
-  //     ]),
-  //   ]),
-  // ],
 })
 export class HomeComponent implements OnInit {
   navigationService: NavigationService = inject(NavigationService);
@@ -79,6 +50,10 @@ export class HomeComponent implements OnInit {
       return 'repeat(2, 1fr)';
     } else return 'repeat(1, 1fr)';
   });
+
+  shouldShowFeatureCards(): boolean {
+    return !this.responsiveService.smallWidth();
+  }
 
   onDelete(reservation: Reservation) {
     console.log(reservation);

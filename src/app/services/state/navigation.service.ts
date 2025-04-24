@@ -1,7 +1,8 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Route } from '../../model/route';
 import Keycloak from 'keycloak-js';
+import { ResponsiveService } from '../display/responsive.service';
 
 @Injectable({
   providedIn: 'root',
@@ -60,11 +61,22 @@ export class NavigationService {
 
   private router: Router = inject(Router);
   private keycloak: Keycloak = inject(Keycloak);
+  private responsiveService: ResponsiveService = inject(ResponsiveService);
 
   isCollapsed = this.collapsed.asReadonly();
 
+  constructor() {
+    effect(() => {
+      if (this.responsiveService.smallWidth()) {
+        this.collapsed.set(true);
+      }
+    });
+  }
+
   toggle() {
-    this.collapsed.set(!this.collapsed());
+    if (!this.responsiveService.smallWidth()) {
+      this.collapsed.set(!this.collapsed());
+    }
   }
 
   public getRoutes(): Route[] {

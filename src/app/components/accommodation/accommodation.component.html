@@ -64,16 +64,18 @@
   <mat-accordion>
     <mat-expansion-panel *ngFor="let room of paginatedRooms">
       <mat-expansion-panel-header>
-        Room {{ room.number }} ({{ room.numOfResidents }}/{{ room.capacity }})
-        <span
-          *ngIf="room.numOfResidents < room.capacity; else fullRoom"
-          style="color: green; margin-left: 8px"
-        >
-          - Free
-        </span>
-        <ng-template #fullRoom>
-          <span style="color: red; margin-left: 8px">- Full</span>
-        </ng-template>
+        <div class="room-header">
+          Room {{ room.number }} ({{ room.numOfResidents }}/{{ room.capacity }})
+          <span
+            *ngIf="room.numOfResidents < room.capacity; else fullRoom"
+            style="color: green; margin-left: 8px"
+          >
+            Free
+          </span>
+          <ng-template #fullRoom>
+            <span style="color: red; margin-left: 8px">Full</span>
+          </ng-template>
+        </div>
       </mat-expansion-panel-header>
 
       <mat-card-content>
