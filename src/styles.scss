@@ -45,3 +45,35 @@ body {
   background: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
 }
+
+//
+//.light-mode .link {
+//  color: #00458f;
+//}
+//
+//.dark-mode .link {
+//  color: #a974ff;
+//}
+
+
+.light-mode .link {
+  color: #00458f;
+  text-decoration: none;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+.light-mode .link:hover {
+  color: #1565c0;
+  text-decoration: underline;
+}
+
+.dark-mode .link {
+  color: #a974ff;
+  text-decoration: none;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+.dark-mode .link:hover {
+  color: #fad7ff;
+  text-decoration: underline;
+}

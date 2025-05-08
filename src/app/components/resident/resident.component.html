@@ -59,12 +59,8 @@
             [ngClass]="{ 'disabled-row': !element.enabled }"
           >
             <div style="display: flex; flex-direction: column">
-              <a
-                [ngClass]="{
-                  'email-link': element.enabled,
-                  'disabled-link': !element.enabled,
-                }"
-                [href]="'mailto:' + element.email"
+              <a class="link"
+                 [href]="'mailto:' + element.email"
                 >{{ element.email }}</a
               >
               <span>{{ element.phone }}</span>
