@@ -28,12 +28,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { ReservationService } from '../../../services/api/reservation.service';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-  NativeDateAdapter,
-} from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import {
   MatStep,

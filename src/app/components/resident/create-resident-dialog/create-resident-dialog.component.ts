@@ -39,7 +39,6 @@ import { AccommodationService } from '../../../services/api/accommodation.servic
     ReactiveFormsModule,
     NgIf,
     MatInput,
-    MatIconButton,
     MatButton,
     MatMiniFabButton,
     MatTooltip,

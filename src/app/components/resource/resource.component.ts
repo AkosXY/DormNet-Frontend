@@ -181,6 +181,39 @@ export class ResourceComponent implements OnInit {
     }
   }
 
+  onDelete(element: Resource) {
+    if (element.available) {
+      // Optionally show a snack bar or warning dialog
+      this.dialog.open(ConfirmDialogComponent, {
+        data: `Resource "${element.name}" must be disabled before deletion.`,
+      });
+      return;
+    }
+
+    this.dialog.open(ConfirmDialogComponent, {
+      data: `Are you sure you want to delete "${element.name}"? This action cannot be undone.`,
+    }).afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.resourceService.deleteResource(element.id).subscribe({
+          next: (result) => {
+            if (result) {
+              this.initTable();
+            } else {
+              this.dialog.open(ConfirmDialogComponent, {
+                data: `Could not delete "${element.name}". Disable resource first`,
+              });
+            }
+          },
+          error: () => {
+            this.dialog.open(ConfirmDialogComponent, {
+              data: `Error occurred while deleting "${element.name}".`,
+            });
+          }
+        });
+      }
+    });
+  }
+
   private initDisplayedColumns() {
     this.displayedColumns = ['name', 'available'];
 

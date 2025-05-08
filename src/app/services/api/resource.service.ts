@@ -35,4 +35,9 @@ export class ResourceService {
   createResource(resource: ResourceBase): Observable<any> {
     return this.http.post(`${this.baseUrl}/add`, resource);
   }
+
+  deleteResource(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.baseUrl}/delete?id=${id}`);
+  }
+
 }
