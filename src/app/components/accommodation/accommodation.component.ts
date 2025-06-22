@@ -102,7 +102,6 @@ export class AccommodationComponent implements OnInit {
     this.loadRooms();
     this.resident$ = this.accommodationService.getAllResidents().pipe(
       tap((data) => {
-        console.log('Residents data:', data);
       }),
     );
     Chart.register(...registerables);

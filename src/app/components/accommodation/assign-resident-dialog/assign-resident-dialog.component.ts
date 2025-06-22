@@ -69,10 +69,7 @@ export class AssignResidentDialogComponent implements OnInit {
   }
 
   assignResident() {
-    console.log(this.selectedResident);
-
     if (this.selectedResident) {
-      console.log('selected:' + this.selectedResident);
       this.accommodationService
         .assignResidentToRoom(this.selectedResident.id, this.data.room.id)
         .subscribe(() => {

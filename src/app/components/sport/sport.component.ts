@@ -174,10 +174,6 @@ export class SportComponent implements OnInit {
     });
   }
 
-  toggleEntries(event: any): void {
-    event.showEntries = !event.showEntries;
-  }
-
   onCreate() {
     const dialogRef = this.dialog.open(CreateSportEventDialogComponent, {
       autoFocus: false,

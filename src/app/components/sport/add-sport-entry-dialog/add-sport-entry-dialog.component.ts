@@ -65,9 +65,6 @@ export class AddSportEntryDialogComponent {
     const { name, score } = this.submitForm.value;
     const eventId = this.selectedEvent.id;
 
-    console.log(eventId);
-    console.log({ participantName: name!, score: +score! });
-
     this.sportService
       .addEntryToSportEvent(eventId, { participantName: name!, score: +score! })
       .subscribe({

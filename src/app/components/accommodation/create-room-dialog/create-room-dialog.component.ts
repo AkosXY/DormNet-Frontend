@@ -61,7 +61,7 @@ export class CreateRoomDialogComponent {
     capacityForm: new FormControl(4, [Validators.required]),
   });
 
-  capacity: number = 4;
+  capacity = 4;
 
   submit() {
     this.submitForm.markAllAsTouched();

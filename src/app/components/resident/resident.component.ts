@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -61,7 +61,7 @@ import Keycloak from 'keycloak-js';
   templateUrl: './resident.component.html',
   styleUrl: './resident.component.scss',
 })
-export class ResidentComponent {
+export class ResidentComponent implements OnInit{
   displayedColumns = ['name', 'username', 'contact'];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -84,11 +84,6 @@ export class ResidentComponent {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-  }
-
-  getAdminName() {
-    console.log(this.keycloak.loadUserInfo());
-    return 'todo';
   }
 
   initDebounce() {

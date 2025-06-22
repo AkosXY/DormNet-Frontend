@@ -101,7 +101,6 @@ export class ReservationDialogComponent {
       representation: 'date',
     });
 
-    console.log(this.data);
     this.reservationService
       .getAvailableTimeSlots(this.data.id, formattedDate, this.duration?.value!)
       .subscribe({
@@ -138,10 +137,8 @@ export class ReservationDialogComponent {
       stopDate: format(new Date(stopDate), "yyyy-MM-dd'T'HH:mm:ss"),
     };
 
-    console.log(newReservation);
     this.reservationService.placeReservation(newReservation).subscribe({
       next: (response) => {
-        console.log('Reservation:', response);
         this.dialogRef.close();
       },
       error: (error) => {

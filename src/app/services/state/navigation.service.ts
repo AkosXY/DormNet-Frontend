@@ -7,7 +7,6 @@ import { ResponsiveService } from '../display/responsive.service';
 @Injectable({
   providedIn: 'root',
 })
-@Injectable({ providedIn: 'root' })
 export class NavigationService {
   private collapsed = signal(false);
 
@@ -38,7 +37,7 @@ export class NavigationService {
       icon: 'local_laundry_service',
       route: 'resources',
       description:
-        'Access shared facilities, documents, and reservation options.',
+        'Access shared facilities, documents, and reservations.',
       showOnHomepage: true,
     },
     {

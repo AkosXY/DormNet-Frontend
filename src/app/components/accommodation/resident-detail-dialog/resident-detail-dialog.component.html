@@ -1,8 +1,8 @@
 <h2 mat-dialog-title>Resident Details</h2>
 <mat-dialog-content>
-  <p><strong>Name:</strong> {{ data.resident.name }}</p>
-  <p><strong>Email:</strong> {{ data.resident.email }}</p>
-  <p><strong>Room:</strong> {{ data.room.number }}</p>
+  <p><strong>Name:</strong> {{ data.resident?.name }}</p>
+  <p><strong>Email:</strong> {{ data.resident?.email }}</p>
+  <p><strong>Room:</strong> {{ data.room?.number }}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
