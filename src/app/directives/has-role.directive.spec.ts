@@ -13,7 +13,7 @@
     standalone: true,
     imports: [HasRoleDirective],
     template: `<div *hasRole="role">Content</div>`
-  }) //        ▲ use a real element not ng-template
+  })
   class HostComponent {
     role: string|string[] = 'admin';
   }
