@@ -24,7 +24,7 @@ import {
   MatLabel,
   MatSuffix,
 } from '@angular/material/input';
-import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-add-sport-entry-dialog',
@@ -37,14 +37,13 @@ import { NgIf } from '@angular/common';
     ReactiveFormsModule,
     MatInput,
     MatSuffix,
-    NgIf,
     MatError,
     MatIcon,
     MatDialogActions,
     MatButton,
     MatLabel,
-    MatFormField,
-  ],
+    MatFormField
+],
   templateUrl: './add-sport-entry-dialog.component.html',
   styleUrl: './add-sport-entry-dialog.component.scss',
 })

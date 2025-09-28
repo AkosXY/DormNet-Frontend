@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { DatePipe, NgForOf, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   MatFormField,
   MatInput,
@@ -49,7 +49,6 @@ import Keycloak from 'keycloak-js';
 @Component({
   selector: 'app-sport',
   imports: [
-    NgIf,
     MatLabel,
     MatFormField,
     MatInput,
@@ -57,7 +56,6 @@ import Keycloak from 'keycloak-js';
     MatButton,
     FormsModule,
     DatePipe,
-    NgForOf,
     MatFabButton,
     MatIcon,
     MatSuffix,
@@ -75,8 +73,8 @@ import Keycloak from 'keycloak-js';
     MatRow,
     MatIconButton,
     MatPaginator,
-    HasRoleDirective,
-  ],
+    HasRoleDirective
+],
   templateUrl: './sport.component.html',
   styleUrl: './sport.component.scss',
 })

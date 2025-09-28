@@ -14,7 +14,7 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
-import { NgForOf } from '@angular/common';
+
 import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import {
   MatAutocomplete,
@@ -37,15 +37,14 @@ import { MatTooltip } from '@angular/material/tooltip';
     MatLabel,
     MatSelectModule,
     FormsModule,
-    NgForOf,
     MatInput,
     MatAutocomplete,
     MatAutocompleteTrigger,
     MatDialogClose,
     MatIcon,
     MatMiniFabButton,
-    MatTooltip,
-  ],
+    MatTooltip
+],
   templateUrl: './assign-resident-dialog.component.html',
   styleUrl: './assign-resident-dialog.component.scss',
 })

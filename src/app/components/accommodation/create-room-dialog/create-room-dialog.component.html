@@ -17,9 +17,9 @@
           type="text"
         />
         <mat-icon matSuffix>hotel</mat-icon>
-        <mat-error *ngIf="numberForm?.errors?.['required']">
-          room number required
-        </mat-error>
+        @if (numberForm?.errors?.["required"]) {
+          <mat-error> room number required </mat-error>
+        }
       </mat-form-field>
 
       <div class="slider-container">

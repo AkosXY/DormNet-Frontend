@@ -20,7 +20,7 @@ import {
   MatLabel,
   MatSuffix,
 } from '@angular/material/input';
-import { NgIf } from '@angular/common';
+
 import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RoomBase } from '../../../model/room';
@@ -35,7 +35,6 @@ import { AccommodationService } from '../../../services/api/accommodation.servic
     MatLabel,
     MatError,
     ReactiveFormsModule,
-    NgIf,
     MatInput,
     MatSlider,
     MatSliderModule,
@@ -46,8 +45,8 @@ import { AccommodationService } from '../../../services/api/accommodation.servic
     MatDialogClose,
     MatSlider,
     FormsModule,
-    MatDialogActions,
-  ],
+    MatDialogActions
+],
   templateUrl: './create-room-dialog.component.html',
   styleUrl: './create-room-dialog.component.scss',
 })

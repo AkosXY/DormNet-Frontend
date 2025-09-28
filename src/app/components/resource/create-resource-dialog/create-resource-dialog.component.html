@@ -12,9 +12,9 @@
         <mat-label>Resource Name</mat-label>
         <input matInput formControlName="name" />
         <mat-icon matSuffix>print</mat-icon>
-        <mat-error *ngIf="submitForm.controls['name'].hasError('required')">
-          Resource Name is required
-        </mat-error>
+        @if (submitForm.controls["name"].hasError("required")) {
+          <mat-error> Resource Name is required </mat-error>
+        }
       </mat-form-field>
       <div class="available-toggle">
         <mat-label>available to rent: </mat-label>

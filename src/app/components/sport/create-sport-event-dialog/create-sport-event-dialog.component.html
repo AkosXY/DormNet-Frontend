@@ -11,18 +11,22 @@
       <mat-label>Sport Event</mat-label>
       <input matInput formControlName="name" />
       <mat-icon matSuffix>sports_soccer</mat-icon>
-      <mat-error *ngIf="submitForm.controls['name'].hasError('required')">
-        Resource Name is required
-      </mat-error>
+      @if (submitForm.controls['name'].hasError('required')) {
+        <mat-error>
+          Resource Name is required
+        </mat-error>
+      }
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Event Date</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="date" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="submitForm.controls['date'].hasError('required')">
-        Date is required
-      </mat-error>
+      @if (submitForm.controls['date'].hasError('required')) {
+        <mat-error>
+          Date is required
+        </mat-error>
+      }
     </mat-form-field>
   </form>
 
@@ -34,7 +38,7 @@
         color="primary"
         (click)="submit()"
         [disabled]="submitForm.invalid"
-      >
+        >
         Save
       </button>
     </mat-dialog-actions>

@@ -34,7 +34,7 @@ import {
   MatStepper,
   MatStepperPrevious,
 } from '@angular/material/stepper';
-import { NgForOf, NgIf } from '@angular/common';
+
 import { Resource } from '../../../model/resource';
 import { ReservationBase } from '../../../model/reservation';
 
@@ -58,10 +58,8 @@ import { ReservationBase } from '../../../model/reservation';
     MatStep,
     MatStepper,
     ReactiveFormsModule,
-    NgForOf,
-    NgIf,
-    MatStepperPrevious,
-  ],
+    MatStepperPrevious
+],
   selector: 'app-reservation-dialog',
   styleUrl: './reservation-dialog.component.scss',
   templateUrl: './reservation-dialog.component.html',

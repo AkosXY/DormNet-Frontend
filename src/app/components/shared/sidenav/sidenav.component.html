@@ -1,20 +1,22 @@
 <mat-nav-list>
-  <a
-    mat-list-item
-    *ngFor="let item of menuItems()"
-    [routerLink]="item.route"
-    routerLinkActive
-    #routerLinkActive="routerLinkActive"
-    [activated]="routerLinkActive.isActive"
-  >
-    <mat-icon
-      [fontSet]="
-        routerLinkActive.isActive ? 'material-icons' : 'material-icons-outlined'
-      "
-      matListItemIcon
-      >{{ item.icon }}</mat-icon
+  @for (item of menuItems(); track item) {
+    <a
+      mat-list-item
+      [routerLink]="item.route"
+      routerLinkActive
+      #routerLinkActive="routerLinkActive"
+      [activated]="routerLinkActive.isActive"
     >
-
-    <span matListItemTitle> {{ item.label }}</span>
-  </a>
+      <mat-icon
+        [fontSet]="
+          routerLinkActive.isActive
+            ? 'material-icons'
+            : 'material-icons-outlined'
+        "
+        matListItemIcon
+        >{{ item.icon }}</mat-icon
+      >
+      <span matListItemTitle> {{ item.label }}</span>
+    </a>
+  }
 </mat-nav-list>

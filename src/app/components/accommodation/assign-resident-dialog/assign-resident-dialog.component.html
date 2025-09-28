@@ -22,12 +22,11 @@
       [displayWith]="displayResident"
       (optionSelected)="onResidentSelected($event)"
     >
-      <mat-option
-        *ngFor="let resident of filteredResidents()"
-        [value]="resident"
-      >
-        {{ resident.name }}
-      </mat-option>
+      @for (resident of filteredResidents(); track resident) {
+        <mat-option [value]="resident">
+          {{ resident.name }}
+        </mat-option>
+      }
     </mat-autocomplete>
   </mat-form-field>
 </div>

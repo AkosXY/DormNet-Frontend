@@ -17,12 +17,12 @@
           type="text"
         />
         <mat-icon matSuffix>person</mat-icon>
-        <mat-error *ngIf="nameForm?.errors?.['required']">
-          name required
-        </mat-error>
-        <mat-error *ngIf="nameForm?.errors?.['minlength']">
-          name must be at least 5 characters long
-        </mat-error>
+        @if (nameForm?.errors?.["required"]) {
+          <mat-error> name required </mat-error>
+        }
+        @if (nameForm?.errors?.["minlength"]) {
+          <mat-error> name must be at least 5 characters long </mat-error>
+        }
       </mat-form-field>
       <mat-form-field [appearance]="'outline'">
         <mat-label>username</mat-label>
@@ -33,12 +33,12 @@
           type="text"
         />
         <mat-icon matSuffix>badge</mat-icon>
-        <mat-error *ngIf="usernameForm?.errors?.['required']">
-          username required
-        </mat-error>
-        <mat-error *ngIf="usernameForm?.errors?.['minlength']">
-          username must be at least 5 characters long
-        </mat-error>
+        @if (usernameForm?.errors?.["required"]) {
+          <mat-error> username required </mat-error>
+        }
+        @if (usernameForm?.errors?.["minlength"]) {
+          <mat-error> username must be at least 5 characters long </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-subsection">
@@ -51,12 +51,12 @@
           type="text"
         />
         <mat-icon matSuffix>mail</mat-icon>
-        <mat-error *ngIf="emailForm?.errors?.['required']">
-          email required
-        </mat-error>
-        <mat-error *ngIf="emailForm?.errors?.['email']">
-          enter valid email address
-        </mat-error>
+        @if (emailForm?.errors?.["required"]) {
+          <mat-error> email required </mat-error>
+        }
+        @if (emailForm?.errors?.["email"]) {
+          <mat-error> enter valid email address </mat-error>
+        }
       </mat-form-field>
       <mat-form-field [appearance]="'outline'">
         <mat-label>phone</mat-label>
@@ -67,12 +67,12 @@
           type="text"
         />
         <mat-icon matSuffix>phone</mat-icon>
-        <mat-error *ngIf="phoneForm?.errors?.['required']">
-          phone number required
-        </mat-error>
-        <mat-error *ngIf="phoneForm?.errors?.['minlength']">
-          phone number is too short
-        </mat-error>
+        @if (phoneForm?.errors?.["required"]) {
+          <mat-error> phone number required </mat-error>
+        }
+        @if (phoneForm?.errors?.["minlength"]) {
+          <mat-error> phone number is too short </mat-error>
+        }
       </mat-form-field>
     </div>
   </form>

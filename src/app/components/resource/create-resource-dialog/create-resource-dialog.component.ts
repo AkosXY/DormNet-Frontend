@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+
 import {
   MatError,
   MatFormField,
@@ -45,7 +45,6 @@ import { ResourceBase } from '../../../model/resource';
     MatFormField,
     MatLabel,
     MatError,
-    NgIf,
     MatInput,
     MatFormField,
     MatDatepickerModule,
@@ -53,8 +52,8 @@ import { ResourceBase } from '../../../model/resource';
     MatSlideToggle,
     MatSlideToggleModule,
     MatTooltip,
-    MatSuffix,
-  ],
+    MatSuffix
+],
   templateUrl: './create-resource-dialog.component.html',
   styleUrl: './create-resource-dialog.component.scss',
 })

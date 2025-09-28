@@ -9,7 +9,7 @@ import {
 import { Room } from '../../model/room';
 import { Resident } from '../../model/resident';
 import { AccommodationService } from '../../services/api/accommodation.service';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   MatCard,
   MatCardActions,
@@ -46,8 +46,6 @@ import { HasRoleDirective } from '../../directives/has-role.directive';
   selector: 'app-accommodation',
   imports: [
     AsyncPipe,
-    NgIf,
-    NgForOf,
     MatCardContent,
     MatChip,
     MatCardActions,
@@ -68,8 +66,8 @@ import { HasRoleDirective } from '../../directives/has-role.directive';
     MatIcon,
     MatFabButton,
     MatSuffix,
-    HasRoleDirective,
-  ],
+    HasRoleDirective
+],
   templateUrl: './accommodation.component.html',
   styleUrl: './accommodation.component.scss',
   encapsulation: ViewEncapsulation.None,

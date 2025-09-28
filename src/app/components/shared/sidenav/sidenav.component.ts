@@ -1,9 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { NavigationService } from '../../../services/state/navigation.service';
-import { MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
 import { MatListModule, MatNavList } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { NgForOf } from '@angular/common';
+
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 export interface MenuItem {
@@ -19,7 +18,6 @@ export interface MenuItem {
     MatNavList,
     MatListModule,
     MatIconModule,
-    NgForOf,
     RouterLink,
     RouterLinkActive,
   ],

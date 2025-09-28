@@ -34,7 +34,7 @@ import {
   NativeDateAdapter,
 } from '@angular/material/core';
 import { SportComponent } from '../sport.component';
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-sport-event-dialog',
@@ -47,7 +47,6 @@ import { DatePipe, NgIf } from '@angular/common';
     ReactiveFormsModule,
     MatInput,
     MatSuffix,
-    NgIf,
     MatError,
     MatIcon,
     MatDialogActions,
@@ -56,8 +55,8 @@ import { DatePipe, NgIf } from '@angular/common';
     MatFormField,
     MatDatepickerToggle,
     MatDatepicker,
-    MatDatepickerInput,
-  ],
+    MatDatepickerInput
+],
   templateUrl: './create-sport-event-dialog.component.html',
   styleUrl: './create-sport-event-dialog.component.scss',
   providers: [

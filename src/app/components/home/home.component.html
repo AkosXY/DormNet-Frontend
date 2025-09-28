@@ -1,32 +1,34 @@
 <div class="dashboard-container">
-  <div *ngIf="shouldShowFeatureCards()" class="feature-cards">
-    <div
-      class="responsive-grid"
-      [ngStyle]="{ 'grid-template-columns': columnSelector() }"
-    >
-      <app-feature-card *ngFor="let route of routes" [route]="route">
-      </app-feature-card>
+  @if (shouldShowFeatureCards()) {
+    <div class="feature-cards">
+      <div
+        class="responsive-grid"
+        [ngStyle]="{ 'grid-template-columns': columnSelector() }"
+      >
+        @for (route of routes; track route) {
+          <app-feature-card [route]="route"> </app-feature-card>
+        }
+      </div>
     </div>
-  </div>
+  }
 
   <div class="reservations-section">
-    <div
-      *ngIf="reservations.length === 0; else reservation_template"
-      class="no-reservations"
-    >
-      <mat-icon>event_busy</mat-icon>
-      <p class="empty-text">You don't have any reservations yet.</p>
-      <a routerLink="/resources" class="link">Make one here</a>
-    </div>
-    <ng-template #reservation_template>
+    @if (reservations.length === 0) {
+      <div class="no-reservations">
+        <mat-icon>event_busy</mat-icon>
+        <p class="empty-text">You don't have any reservations yet.</p>
+        <a routerLink="/resources" class="link">Make one here</a>
+      </div>
+    } @else {
       <h2>My reservations:</h2>
       <div class="reservations-container">
-        <app-reservation-card
-          *ngFor="let res of reservations"
-          [reservation]="res"
-          (delete)="onDelete($event)"
-        ></app-reservation-card>
+        @for (res of reservations; track res) {
+          <app-reservation-card
+            [reservation]="res"
+            (delete)="onDelete($event)"
+          ></app-reservation-card>
+        }
       </div>
-    </ng-template>
+    }
   </div>
 </div>

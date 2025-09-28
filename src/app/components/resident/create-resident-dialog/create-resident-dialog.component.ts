@@ -12,7 +12,7 @@ import {
 } from '@angular/material/dialog';
 import { ResidentBase } from '../../../model/resident';
 import { AccommodationComponent } from '../../accommodation/accommodation.component';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIcon } from '@angular/material/icon';
 import {
   MatError,
   MatFormField,
@@ -20,10 +20,9 @@ import {
   MatLabel,
   MatSuffix,
 } from '@angular/material/input';
-import { NgIf } from '@angular/common';
+
 import {
   MatButton,
-  MatIconButton,
   MatMiniFabButton,
 } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -37,15 +36,14 @@ import { AccommodationService } from '../../../services/api/accommodation.servic
     MatLabel,
     MatError,
     ReactiveFormsModule,
-    NgIf,
     MatInput,
     MatButton,
     MatMiniFabButton,
     MatTooltip,
     MatDialogClose,
     MatDialogActions,
-    MatSuffix,
-  ],
+    MatSuffix
+],
   templateUrl: './create-resident-dialog.component.html',
   styleUrl: './create-resident-dialog.component.scss',
 })
